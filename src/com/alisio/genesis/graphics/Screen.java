@@ -33,6 +33,7 @@ public class Screen {
 				if(xx < -tile.sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
 				if(xx < 0) xx = 0;
 				int col = tile.sprite.pixels[x+y*tile.sprite.getWidth()];
+				col = Environment.changeBrightness(col, -0);
 				if(col != 0xffff00ff) this.pixels[xx+yy*width] = col;
 			}
 		}

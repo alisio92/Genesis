@@ -1,4 +1,4 @@
-package com.alisio.genesis.helper;
+package com.alisio.genesis.debug;
 
 import java.awt.Color;
 import java.util.ArrayList;
