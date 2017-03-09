@@ -1,4 +1,4 @@
-package com.alisio.genesis.level.objects;
+package com.alisio.genesis.level.object;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.alisio.genesis.graphics;
 
-import com.alisio.genesis.level.objects.TileObject;
+import com.alisio.genesis.level.object.TileObject;
 import com.alisio.genesis.level.tile.Tile;
 
 public class Screen {

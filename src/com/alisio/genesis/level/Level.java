@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.*;
 import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.level.objects.*;
+import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.*;
 
 public class Level {

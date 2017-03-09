@@ -13,7 +13,7 @@ import com.alisio.genesis.entity.mob.Player;
 import com.alisio.genesis.graphics.*;
 import com.alisio.genesis.input.*;
 import com.alisio.genesis.level.*;
-import com.alisio.genesis.resources.Resources;
+import com.alisio.genesis.resource.Resources;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-package com.alisio.genesis.level.objects;
+package com.alisio.genesis.level.object;
 
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;

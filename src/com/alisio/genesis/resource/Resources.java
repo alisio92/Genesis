@@ -1,6 +1,6 @@
-package com.alisio.genesis.resources;
+package com.alisio.genesis.resource;
 
-import com.alisio.genesis.level.objects.*;
+import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.*;
 
 public class Resources {
