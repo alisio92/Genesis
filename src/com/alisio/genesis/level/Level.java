@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.*;
 import com.alisio.genesis.graphics.Screen;
+import com.alisio.genesis.level.objects.*;
 import com.alisio.genesis.level.tile.*;
 
 public class Level {
 	protected int width,height;
 	protected int[] tiles;
+	protected int[] objects;
 	public String name;
 	
 	private List<Entity> entities = new ArrayList<Entity>();
@@ -18,16 +20,17 @@ public class Level {
 		this.width = width;
 		this.height = height;
 		this.tiles = new int[width * height];
+		this.objects = new int[width * height];
 		generateLevel();
 	}
 	
-	public Level(String path, String name){
+	public Level(String pathTiles, String pathObjects, String name){
 		this.name = name;
-		loadLevel(path);
+		loadLevel(pathTiles,pathObjects);
 		generateLevel();
 	}
 
-	protected void loadLevel(String path) {
+	protected void loadLevel(String pathTiles, String pathObjects) {
 	}
 
 	protected void generateLevel() {		
@@ -53,7 +56,15 @@ public class Level {
 			for(int x = left; x < right;x++){
 				getTile(x,y).render(x, y, screen);
 			}
+		}			
+		
+		for(int y = top; y < bottom;y++){
+			for(int x = left; x < right;x++){
+				TileObject o = getObject(x,y);
+				if(o != null) o.render(x, y, screen);
+			}
 		}
+		
 		for(int i = 0; i < entities.size();i++){
 			entities.get(i).render(screen);
 		}
@@ -78,6 +89,16 @@ public class Level {
 				return Tile.listTiles.get(i);
 		}
 		return VoidTile.tile;
+	}
+	
+	public TileObject getObject(int x, int y){
+		if(x < 0 || y < 0 || x >= width || y >= height) return null;		
+		/*for(int i = 0; i < TileObject.listObjects.size();i++){
+			if(objects[x+y*width] == TileObject.listObjects.get(i).color) 
+				return TileObject.listObjects.get(i);
+		}*/
+		if(x == 20 && y == 20) return TreeObject.object;
+		return null;
 	}
 	
 	public boolean tileCollision(double x, double y,double xTo, double yTo, double size) {

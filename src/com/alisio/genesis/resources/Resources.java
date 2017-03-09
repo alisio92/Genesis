@@ -1,5 +1,6 @@
 package com.alisio.genesis.resources;
 
+import com.alisio.genesis.level.objects.*;
 import com.alisio.genesis.level.tile.*;
 
 public class Resources {
@@ -18,5 +19,8 @@ public class Resources {
 		Tile.listTiles.add(SandTile.tile);
 		Tile.listTiles.add(WaterTile.tile);
 		Tile.listTiles.add(DirtTile.tile);
+		
+		TileObject.listObjects.add(VoidObject.object);
+		TileObject.listObjects.add(TreeObject.object);
 	}
 }

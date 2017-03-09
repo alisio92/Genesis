@@ -3,7 +3,7 @@ package com.alisio.genesis.level.tile;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 
-public class FlowerTile extends Tile{
+public class FlowerTile extends Tile {
 	
 	public static Sprite sprite = new Sprite(SIZE,1,0,tiles);
 	public static int color = 0xffffff00;

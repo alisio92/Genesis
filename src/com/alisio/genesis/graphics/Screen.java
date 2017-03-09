@@ -1,5 +1,6 @@
 package com.alisio.genesis.graphics;
 
+import com.alisio.genesis.level.objects.TileObject;
 import com.alisio.genesis.level.tile.Tile;
 
 public class Screen {
@@ -23,6 +24,24 @@ public class Screen {
 		}
 	}
 	
+	public void renderObject(int xLoc, int yLoc, TileObject object){
+		xLoc -= XOffset;
+		yLoc -= yOffset;
+		for(int y = 0;y < object.sprite.getHeight();y++){
+			int yy = y + yLoc;
+			for(int x = 0;x < object.sprite.getWidth();x++){
+				int xx = x + xLoc;
+				if(xx < -object.sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
+				if(xx < 0) xx = 0;
+				int col = object.sprite.pixels[x+y*object.sprite.getWidth()];				
+				if(col != 0xffff00ff) {
+					col = Environment.changeBrightness(col, -0);
+					this.pixels[xx+yy*width] = col;
+				}
+			}
+		}
+	}
+	
 	public void renderTile(int xLoc, int yLoc, Tile tile){
 		xLoc -= XOffset;
 		yLoc -= yOffset;
@@ -33,8 +52,10 @@ public class Screen {
 				if(xx < -tile.sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
 				if(xx < 0) xx = 0;
 				int col = tile.sprite.pixels[x+y*tile.sprite.getWidth()];
-				col = Environment.changeBrightness(col, -0);
-				if(col != 0xffff00ff) this.pixels[xx+yy*width] = col;
+				if(col != 0xffff00ff) {
+					col = Environment.changeBrightness(col, -0);
+					this.pixels[xx+yy*width] = col;
+				}
 			}
 		}
 	}
@@ -49,7 +70,8 @@ public class Screen {
 			for(int x = 0;x < sprite.getWidth();x++){
 				int xx = x + xLoc;
 				if(xx < 0 || xx >= width || yy < 0 || yy >= height) continue;
-				this.pixels[xx+yy*width] = sprite.pixels[x+y*sprite.getWidth()];
+				int col = sprite.pixels[x+y*sprite.getWidth()];
+				if(col != 0xffff00ff) this.pixels[xx+yy*width] = col;
 			}
 		}
 	}

@@ -153,10 +153,10 @@ public class Game extends Canvas implements Runnable{
 	private void NewLevel() {
 		TileLocation location;
 		if(level.name == "island2"){
- 			level = new BasicLevel("/maps/test3.png", "test3");
+ 			level = new BasicLevel("/maps/test3.png",null, "test3");
 			location = new TileLocation(12,8);
 		}else{
-			level = new BasicLevel("/maps/island2.png", "island2");
+			level = new BasicLevel("/maps/island_tile2.png","/maps/island_object2.png", "island2");
 			location = new TileLocation(20,12);
 		}
 		player = new Player(location.getX(),location.getY(),key);
@@ -171,7 +171,7 @@ public class Game extends Canvas implements Runnable{
 		screen = new Screen(width,height);		
 		frame = new JFrame();
 		key = new KeyBoard();
-		level = new BasicLevel("/maps/island2.png", "island2");
+		level = new BasicLevel("/maps/island_tile2.png","/maps/island_object2.png", "island2");
 		
 		TileLocation location = new TileLocation(20,12);
 		player = new Player(location.getX(),location.getY(),key);
