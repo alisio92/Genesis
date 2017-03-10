@@ -2,7 +2,6 @@ package com.alisio.genesis.resource;
 
 import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.*;
-import com.alisio.genesis.reader.XMLReader;
 
 public class Resources {
 	
@@ -12,9 +11,7 @@ public class Resources {
 	//stone = 0xffff0000
 	//water = 0xffffffff
 	//dirt = 0xff7F0000
-	public Resources() {
-		new XMLReader("/maps/island2/objects.xml");
-		
+	public Resources() {		
 		Tile.listTiles.add(VoidTile.tile);
 		Tile.listTiles.add(GrassTile.tile);
 		Tile.listTiles.add(FlowerTile.tile);

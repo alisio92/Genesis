@@ -3,6 +3,7 @@ package com.alisio.genesis.level;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import com.alisio.genesis.reader.XMLReader;
 
 public class BasicLevel extends Level {
 
@@ -19,6 +20,7 @@ public class BasicLevel extends Level {
 			this.height = h;
 			this.tiles = new int[w*h];
 			imageTiles.getRGB(0, 0,w,h,tiles,0,w);
+			new XMLReader("/maps/" + name + "/objects.xml");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Could not load level file from " + path + "!");
