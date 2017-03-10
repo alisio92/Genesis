@@ -5,7 +5,7 @@ import com.alisio.genesis.graphics.Sprite;
 
 public class VoidTile extends Tile {
 	
-	public static Sprite sprite = new Sprite(SIZE,0xffff00ff);
+	public static Sprite sprite = new Sprite(SIZE,0xffffffff);
 	public static int color = 0;
 	public static Tile tile = new VoidTile(sprite,color);
 

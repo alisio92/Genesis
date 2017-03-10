@@ -1,0 +1,18 @@
+<trees>
+  <tree>
+    <locationx>20</locationx>
+    <locationy>20</locationy>
+  </tree>
+  <tree>
+    <locationx>22</locationx>
+    <locationy>20</locationy>
+  </tree>
+  <tree>
+    <locationx>20</locationx>
+    <locationy>22</locationy>
+  </tree>
+  <tree>
+    <locationx>22</locationx>
+    <locationy>22</locationy>
+  </tree>
+</trees>

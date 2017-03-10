@@ -1,18 +1,23 @@
 package com.alisio.genesis;
 
-import java.awt.*;
+import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.image.*;
+import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 import com.alisio.genesis.console.Console;
 import com.alisio.genesis.debug.Debug;
 import com.alisio.genesis.entity.mob.Player;
-import com.alisio.genesis.graphics.*;
-import com.alisio.genesis.input.*;
-import com.alisio.genesis.level.*;
+import com.alisio.genesis.graphics.Screen;
+import com.alisio.genesis.input.KeyBoard;
+import com.alisio.genesis.input.Mouse;
+import com.alisio.genesis.level.BasicLevel;
+import com.alisio.genesis.level.Level;
+import com.alisio.genesis.level.TileLocation;
 import com.alisio.genesis.resource.Resources;
 
 public class Game extends Canvas implements Runnable{
@@ -153,10 +158,10 @@ public class Game extends Canvas implements Runnable{
 	private void NewLevel() {
 		TileLocation location;
 		if(level.name == "island2"){
- 			level = new BasicLevel("/maps/test3.png",null, "test3");
+ 			level = new BasicLevel("/maps/test3.png", "test3");
 			location = new TileLocation(12,8);
 		}else{
-			level = new BasicLevel("/maps/island_tile2.png","/maps/island_object2.png", "island2");
+			level = new BasicLevel("/maps/island2/tile.png", "island2");
 			location = new TileLocation(20,12);
 		}
 		player = new Player(location.getX(),location.getY(),key);
@@ -171,7 +176,7 @@ public class Game extends Canvas implements Runnable{
 		screen = new Screen(width,height);		
 		frame = new JFrame();
 		key = new KeyBoard();
-		level = new BasicLevel("/maps/island_tile2.png","/maps/island_object2.png", "island2");
+		level = new BasicLevel("/maps/island2/tile.png", "island2");
 		
 		TileLocation location = new TileLocation(20,12);
 		player = new Player(location.getX(),location.getY(),key);

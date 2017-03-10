@@ -6,13 +6,13 @@ import javax.imageio.ImageIO;
 
 public class BasicLevel extends Level {
 
-	public BasicLevel(String pathTiles, String pathObjects, String name) {
-		super(pathTiles,pathObjects,name);
+	public BasicLevel(String path, String name) {
+		super(path,name);
 	}
 	
-	protected void loadLevel(String pathTiles, String pathObjects) {
+	protected void loadLevel(String path) {
 		try {
-			BufferedImage imageTiles = ImageIO.read(BasicLevel.class.getResource(pathTiles));
+			BufferedImage imageTiles = ImageIO.read(BasicLevel.class.getResource(path));
 			int w = imageTiles.getWidth();
 			this.width = w;
 			int h = imageTiles.getHeight();
@@ -21,22 +21,7 @@ public class BasicLevel extends Level {
 			imageTiles.getRGB(0, 0,w,h,tiles,0,w);
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Could not load level tiles file from " + pathTiles + "!");
-		}
-		
-		try {
-			if(pathObjects != null){
-				BufferedImage imageObjects = ImageIO.read(BasicLevel.class.getResource(pathObjects));
-				int w = imageObjects.getWidth();
-				int h = imageObjects.getHeight();
-				this.objects = new int[w*h];
-				imageObjects.getRGB(0, 0,w,h,objects,0,w);
-			}else{
-				this.objects = new int[this.width * this.height];
-			}			
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.out.println("Could not load level objects file from " + pathObjects + "!");
+			System.out.println("Could not load level file from " + path + "!");
 		}		
 	}
 	

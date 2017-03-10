@@ -6,11 +6,11 @@ import com.alisio.genesis.entity.*;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.*;
+import com.alisio.genesis.reader.XMLReader;
 
 public class Level {
 	protected int width,height;
 	protected int[] tiles;
-	protected int[] objects;
 	public String name;
 	
 	private List<Entity> entities = new ArrayList<Entity>();
@@ -20,17 +20,16 @@ public class Level {
 		this.width = width;
 		this.height = height;
 		this.tiles = new int[width * height];
-		this.objects = new int[width * height];
 		generateLevel();
 	}
 	
-	public Level(String pathTiles, String pathObjects, String name){
+	public Level(String path, String name){
 		this.name = name;
-		loadLevel(pathTiles,pathObjects);
+		loadLevel(path);
 		generateLevel();
 	}
 
-	protected void loadLevel(String pathTiles, String pathObjects) {
+	protected void loadLevel(String path) {
 	}
 
 	protected void generateLevel() {		
@@ -61,7 +60,8 @@ public class Level {
 		for(int y = top; y < bottom;y++){
 			for(int x = left; x < right;x++){
 				TileObject o = getObject(x,y);
-				if(o != null) o.render(x, y, screen);
+				if(o != null) 
+					o.render(x, y, screen);
 			}
 		}
 		
@@ -92,12 +92,10 @@ public class Level {
 	}
 	
 	public TileObject getObject(int x, int y){
-		if(x < 0 || y < 0 || x >= width || y >= height) return null;		
-		/*for(int i = 0; i < TileObject.listObjects.size();i++){
-			if(objects[x+y*width] == TileObject.listObjects.get(i).color) 
-				return TileObject.listObjects.get(i);
-		}*/
-		if(x == 20 && y == 20) return TreeObject.object;
+		if(x < 0 || y < 0 || x >= width || y >= height) return null;			
+		for (int i = 0; i < XMLReader.trees.size();i++) {
+			if(x == XMLReader.trees.get(i).x && y == XMLReader.trees.get(i).y) return TreeObject.object;
+		}
 		return null;
 	}
 	
