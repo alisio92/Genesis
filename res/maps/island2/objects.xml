@@ -1,18 +1,47 @@
 <trees>
   <tree>
+    <name>TreeObject</name>
     <locationx>20</locationx>
     <locationy>20</locationy>
   </tree>
   <tree>
-    <locationx>22</locationx>
+    <name>TreeObject</name>
+    <locationx>24</locationx>
     <locationy>20</locationy>
   </tree>
   <tree>
+    <name>TreeObject</name>
     <locationx>20</locationx>
-    <locationy>22</locationy>
+    <locationy>24</locationy>
   </tree>
   <tree>
-    <locationx>22</locationx>
-    <locationy>22</locationy>
+    <name>TreeObject</name>
+    <locationx>24</locationx>
+    <locationy>24</locationy>
+  </tree>
+  <tree>
+    <name>TreeObject</name>
+    <locationx>34</locationx>
+    <locationy>44</locationy>
+  </tree>
+  <tree>
+    <name>TreeObject</name>
+    <locationx>32</locationx>
+    <locationy>13</locationy>
+  </tree>
+  <tree>
+    <name>TreeObject</name>
+    <locationx>21</locationx>
+    <locationy>12</locationy>
+  </tree>
+  <tree>
+    <name>PalmTreeObject</name>
+    <locationx>27</locationx>
+    <locationy>50</locationy>
+  </tree>
+  <tree>
+    <name>PalmTreeObject</name>
+    <locationx>13</locationx>
+    <locationy>43</locationy>
   </tree>
 </trees>

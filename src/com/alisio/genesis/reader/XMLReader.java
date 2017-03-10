@@ -12,7 +12,7 @@ import org.w3c.dom.NodeList;
 public class XMLReader {
 	
 	public String path;
-	public static List<XMLTree> trees = new ArrayList<XMLTree>();
+	public static List<XMLObject> trees = new ArrayList<XMLObject>();
 	public static String error  = "";
 	
 	public XMLReader(String path) {
@@ -42,9 +42,10 @@ public class XMLReader {
 				Node node = nodelist.item(i);
 				if(node != null) {
 					Element e = (Element)node;
+					Node name = e.getElementsByTagName("name").item(0);
 					Node locationX = e.getElementsByTagName("locationx").item(0);
 					Node locationY = e.getElementsByTagName("locationy").item(0);
-					XMLTree tree = new XMLTree(Integer.parseInt(locationX.getTextContent()),Integer.parseInt(locationY.getTextContent()));
+					XMLObject tree = new XMLObject(name.getTextContent(),Integer.parseInt(locationX.getTextContent()),Integer.parseInt(locationY.getTextContent()));
 					trees.add(tree);
 				}
 			}

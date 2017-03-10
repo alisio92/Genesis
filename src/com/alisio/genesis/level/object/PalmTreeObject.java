@@ -4,13 +4,13 @@ import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.level.tile.Tile;
 
-public class TreeObject extends TileObject {
+public class PalmTreeObject extends TileObject {
 	
-	public static Sprite sprite = new Sprite(SIZE * 2,0,0,objects);
-	public static String name = "TreeObject";
-	public static TileObject object = new TreeObject(sprite,name);
+	public static Sprite sprite = new Sprite(SIZE * 2,1,0,objects);
+	public static String name = "PalmTreeObject";
+	public static TileObject object = new PalmTreeObject(sprite,name);
 
-	public TreeObject(Sprite sprite, String name) {
+	public PalmTreeObject(Sprite sprite, String name) {
 		super(sprite, name);
 	}
 	

@@ -20,8 +20,8 @@ public class SpriteSheet {
 	
 	public SpriteSheet(String path, double scale){
 		this.path = path;
-		this.scale = scale;
-		load(scale);
+		this.scale = 1.0 / scale;
+		load(this.scale);
 	}
 	
 	private void load(){

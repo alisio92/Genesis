@@ -8,6 +8,7 @@ import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
 import com.alisio.genesis.input.KeyBoard;
 import com.alisio.genesis.input.Mouse;
+import com.alisio.genesis.level.tile.Tile;
 
 public class Player extends Mob {
 
@@ -134,5 +135,13 @@ public class Player extends Mob {
 		}
 
 		screen.renderPlayer((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
+	}
+	
+	public int getTileX() {
+		return ((int)(x + (WIDTH / 2)) >> Tile.BASE_SIZE);
+	}
+	
+	public int getTileY() {
+		return ((int)(y + (HEIGHT / 2)) >> Tile.BASE_SIZE);
 	}
 }

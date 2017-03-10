@@ -1,8 +1,7 @@
 package com.alisio.genesis.graphics;
 
 public class Sprite {
-	private int width;
-	private int height;
+	private int width, height;
 	private int x,y;
 	public int[] pixels;
 	private SpriteSheet sheet;

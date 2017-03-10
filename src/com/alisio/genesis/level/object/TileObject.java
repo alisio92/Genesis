@@ -12,15 +12,15 @@ public class TileObject {
 	public static final int BASE_SIZE = 5;
 	public static final int SIZE = (int)Math.pow(2, BASE_SIZE);
 	public Sprite sprite;
-	public int color = 0;
+	public String name;
 	
 	public static List<TileObject> listObjects = new ArrayList<TileObject>();
 	
-	public static SpriteSheet objects = new SpriteSheet("/" + Tile.SIZE + "/textures/objects.png");
+	public static SpriteSheet objects = new SpriteSheet("/" + Tile.SIZE + "/textures/objects.png",2);
 	
-	public TileObject(Sprite sprite, int color){
+	public TileObject(Sprite sprite, String name){
 		this.sprite = sprite;
-		this.color = color;
+		this.name = name;
 	}
 	
 	public void render(int x, int y, Screen screen){

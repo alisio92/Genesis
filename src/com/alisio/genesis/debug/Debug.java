@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.mob.Player;
 import com.alisio.genesis.level.Level;
-import com.alisio.genesis.level.tile.Tile;
 import com.alisio.genesis.reader.XMLReader;
 
 public class Debug {
@@ -19,11 +18,8 @@ public class Debug {
 		
 		//player
 		data.add(new DataLocation("Player",10,20));
-		data.add(new DataLocation("X: " + player.x + ", Y: " + player.y,15,40));
-		
-		int tileX = ((int)(player.x + (Player.WIDTH / 2)) >> Tile.BASE_SIZE);
-		int tileY = ((int)(player.y + (Player.HEIGHT / 2)) >> Tile.BASE_SIZE);
-		data.add(new DataLocation("TileX: " + tileX + ", TileY: " + tileY,15,60));
+		data.add(new DataLocation("X: " + player.x + ", Y: " + player.y,15,40));		
+		data.add(new DataLocation("TileX: " + player.getTileX() + ", TileY: " + player.getTileY(),15,60));
 		
 		//level
 		data.add(new DataLocation("Level",10,90));
