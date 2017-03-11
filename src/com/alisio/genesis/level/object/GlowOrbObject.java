@@ -25,4 +25,8 @@ public class GlowOrbObject extends TileObject {
 	public boolean blocksShooting(){
 		return true;
 	}
+	
+	public boolean emitsLight(){
+		return true;
+	}
 }

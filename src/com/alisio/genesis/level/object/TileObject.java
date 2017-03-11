@@ -39,4 +39,8 @@ public class TileObject {
 	public boolean blocksShooting(){
 		return true;
 	}
+	
+	public boolean emitsLight(){
+		return false;
+	}
 }

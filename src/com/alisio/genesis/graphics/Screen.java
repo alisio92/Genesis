@@ -36,7 +36,7 @@ public class Screen {
 				if(xx < 0) xx = 0;
 				int col = object.sprite.pixels[x+y*object.sprite.getWidth()];				
 				if(col != 0xffff00ff) {
-					col = Environment.changeBrightness(col, Level.brightness);
+					if(!object.emitsLight()) col = Environment.changeBrightness(col, Level.brightness);
 					this.pixels[xx+yy*width] = col;
 				}
 			}

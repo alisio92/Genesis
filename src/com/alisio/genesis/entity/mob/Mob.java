@@ -17,19 +17,19 @@ public abstract class Mob extends Entity {
 	protected int animation = 0;
 	private int animationSpeed = 0;
 	protected int maxAnimationSpeed = 100;
-	
+
 	protected int firerate = 0;
 
 	protected boolean moving = false;
 	protected int movingSpeed = 0;
 
 	public void move(int xTo, int yTo) {
-		if(xTo != 0 && yTo != 0){
-			move(xTo,0);
-			move(0,yTo);
+		if (xTo != 0 && yTo != 0) {
+			move(xTo, 0);
+			move(0, yTo);
 			return;
 		}
-		
+
 		if (xTo > 0) direction = 1;
 		if (xTo < 0) direction = 3;
 		if (yTo > 0) direction = 2;
@@ -43,7 +43,7 @@ public abstract class Mob extends Entity {
 
 	public void update() {
 	}
-	
+
 	protected void shoot(int x, int y, double direction) {
 		Projectile p = new SphereProjectile(x, y, direction);
 		level.addProjectile(p);
@@ -55,36 +55,46 @@ public abstract class Mob extends Entity {
 
 	private boolean collision(int xTo, int yTo) {
 		boolean collision = false;
-		
-		for(int i = 0;i<Tile.BASE_SIZE;i++){
+
+		for (int i = 0; i < Tile.BASE_SIZE; i++) {
 			double xt = ((x + xTo) + i % 2 * 14 - 8) / Tile.SIZE;
 			double yt = ((y + yTo) + i / 2 * 12 + 3) / Tile.SIZE;
-			if (!level.getTile((int)xt,(int)yt).walkable()) collision = true;
+			if (!level.getTile((int) xt, (int) yt).walkable()) collision = true;
 		}
-				
+
 		return collision;
 	}
-	
-	private boolean collisionOverlay(int xTo, int yTo) {
+
+	public boolean collisionOverlay(int xTo, int yTo) {
 		boolean collision = false;
-		
-		for(int i = 0;i<Tile.BASE_SIZE;i++){
+
+		for (int i = 0; i < Tile.BASE_SIZE; i++) {
 			double xt = ((x + xTo)) / Tile.SIZE;
 			double yt = ((y + yTo)) / Tile.SIZE;
-			TileObject o = getObjectCollision((int)xt,(int)yt); //level.getObject((int)xt,(int)yt);
-			if (o != null && !o.walkable()) 
-				collision = true;
+			TileObject o = getObjectCollision((int) xt, (int) yt); // level.getObject((int)xt,(int)yt);
+			if (o != null && !o.walkable()) collision = true;
 		}
-				
+
 		return collision;
 	}
-	
-	private TileObject getObjectCollision(int x, int y){
+
+	private TileObject getObjectCollision(int x, int y) {
 		int radius = 4;
-		for(int yy = 0; yy < radius;yy++){
-			for(int xx = 0; xx < radius;xx++){
-				TileObject o = level.getObject(x-xx,y-yy);
-				if (o != null) return o;
+		for (int yy = 0; yy < radius; yy++) {
+			for (int xx = 0; xx < radius; xx++) {
+				TileObject o = level.getObject(x - xx, y - yy);
+				if (o != null) {
+					int newradius = o.sprite.getWidth() / 16;
+					if (newradius == radius) return o;
+					else {
+						for (int yyNew = 0; yyNew < newradius; yyNew++) {
+							for (int xxNew = 0; xxNew < newradius; xxNew++) {
+								TileObject oNew = level.getObject(x - xxNew, y - yyNew);
+								if (o != null) return oNew;
+							}
+						}
+					}
+				}
 			}
 		}
 		return null;
