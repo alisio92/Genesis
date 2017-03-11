@@ -2,18 +2,17 @@ package com.alisio.genesis.graphics;
 
 public class Environment {
 	
-	public void update() {
-		
-	}
-	
 	public static int changeBrightness(int col, int amount) {
 		int r = (col & 0xff0000) >> 16;
 		int g = (col & 0xff00) >> 8;
 		int b = (col & 0xff);
 		
+		if(amount > 0) amount = 0;
+		if(amount < -150) amount = -150;
+		
 		r += amount;
 		g += amount;
-		b += amount;
+		b += amount;		
 		
 		if(r < 0) r = 0;
 		if(g < 0) g = 0;

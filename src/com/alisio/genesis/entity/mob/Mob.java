@@ -5,6 +5,7 @@ import com.alisio.genesis.entity.Projectile;
 import com.alisio.genesis.entity.SphereProjectile;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
+import com.alisio.genesis.level.object.TileObject;
 import com.alisio.genesis.level.tile.Tile;
 
 public abstract class Mob extends Entity {
@@ -34,7 +35,7 @@ public abstract class Mob extends Entity {
 		if (yTo > 0) direction = 2;
 		if (yTo < 0) direction = 0;
 
-		if (!collision(xTo, yTo)) {
+		if (!collision(xTo, yTo) && !collisionOverlay(xTo, yTo)) {
 			this.x += xTo;
 			this.y += yTo;
 		}
@@ -62,6 +63,31 @@ public abstract class Mob extends Entity {
 		}
 				
 		return collision;
+	}
+	
+	private boolean collisionOverlay(int xTo, int yTo) {
+		boolean collision = false;
+		
+		for(int i = 0;i<Tile.BASE_SIZE;i++){
+			double xt = ((x + xTo)) / Tile.SIZE;
+			double yt = ((y + yTo)) / Tile.SIZE;
+			TileObject o = getObjectCollision((int)xt,(int)yt); //level.getObject((int)xt,(int)yt);
+			if (o != null && !o.walkable()) 
+				collision = true;
+		}
+				
+		return collision;
+	}
+	
+	private TileObject getObjectCollision(int x, int y){
+		int radius = 4;
+		for(int yy = 0; yy < radius;yy++){
+			for(int xx = 0; xx < radius;xx++){
+				TileObject o = level.getObject(x-xx,y-yy);
+				if (o != null) return o;
+			}
+		}
+		return null;
 	}
 
 	public void setAnimationSpeed(int animationSpeed) {

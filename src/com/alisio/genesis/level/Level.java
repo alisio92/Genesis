@@ -13,6 +13,9 @@ public class Level {
 	protected int width, height;
 	protected int[] tiles;
 	public String name;
+	public static int brightness;
+	public boolean day, night;
+	private int time = 0;
 
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
@@ -37,12 +40,37 @@ public class Level {
 	}
 
 	public void update() {
+		time++;
+		//if(time % 100 == 0) 
+			time();
+		
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).update();
 		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 		}
+	}
+	
+	public void time() {
+		if(brightness < -230) {
+			day = false;
+			night = true;
+		}
+		if(brightness > 80) {
+			day = true;
+			night = false;
+		}
+		
+		if(night) {
+			brightness++;
+			return;
+		}
+		if(day) {
+			brightness--;
+			return;
+		}
+		brightness++;
 	}
 
 	public void render(int xScroll, int yScroll, Screen screen) {

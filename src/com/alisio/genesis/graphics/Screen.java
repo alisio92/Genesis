@@ -1,5 +1,6 @@
 package com.alisio.genesis.graphics;
 
+import com.alisio.genesis.level.Level;
 import com.alisio.genesis.level.object.TileObject;
 import com.alisio.genesis.level.tile.Tile;
 
@@ -35,7 +36,7 @@ public class Screen {
 				if(xx < 0) xx = 0;
 				int col = object.sprite.pixels[x+y*object.sprite.getWidth()];				
 				if(col != 0xffff00ff) {
-					col = Environment.changeBrightness(col, -0);
+					col = Environment.changeBrightness(col, Level.brightness);
 					this.pixels[xx+yy*width] = col;
 				}
 			}
@@ -53,7 +54,7 @@ public class Screen {
 				if(xx < 0) xx = 0;
 				int col = tile.sprite.pixels[x+y*tile.sprite.getWidth()];
 				if(col != 0xffff00ff) {
-					col = Environment.changeBrightness(col, -0);
+					col = Environment.changeBrightness(col, Level.brightness);
 					this.pixels[xx+yy*width] = col;
 				}
 			}
@@ -101,7 +102,10 @@ public class Screen {
 				if(xx < -sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
 				if(xx < 0) xx = 0;
 				int col = sprite.pixels[x+y*sprite.getWidth()];
-				if(col != 0xff78C380) this.pixels[xx+yy*width] = col;
+				if(col != 0xff78C380) {
+					col = Environment.changeBrightness(col, Level.brightness);
+					this.pixels[xx+yy*width] = col;
+				}
 			}
 		}
 	}
