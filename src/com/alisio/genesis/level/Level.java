@@ -2,10 +2,12 @@ package com.alisio.genesis.level;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.alisio.genesis.entity.*;
+import com.alisio.genesis.entity.Entity;
+import com.alisio.genesis.entity.Projectile;
 import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.level.object.*;
-import com.alisio.genesis.level.tile.*;
+import com.alisio.genesis.level.object.TileObject;
+import com.alisio.genesis.level.tile.Tile;
+import com.alisio.genesis.level.tile.VoidTile;
 import com.alisio.genesis.reader.XMLObject;
 import com.alisio.genesis.reader.XMLReader;
 
@@ -14,23 +16,27 @@ public class Level {
 	protected int[] tiles;
 	public String name;
 	public static int brightness;
-	public boolean day, night;
+	private GameTime gameTime;
 	private int time = 0;
+	private int lengthChangeNightDay = 4;
 
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 
+	//cto
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.tiles = new int[width * height];
 		generateLevel();
+		gameTime = new GameTime(1,72000,25200);
 	}
 
 	public Level(String path, String name) {
 		this.name = name;
 		loadLevel(path);
 		generateLevel();
+		gameTime = new GameTime(1,72000,25200);
 	}
 
 	protected void loadLevel(String path) {
@@ -40,37 +46,33 @@ public class Level {
 	}
 
 	public void update() {
-		time++;
-		//if(time % 100 == 0) 
-			time();
+		time();
 		
+		time++;
+		if(time > lengthChangeNightDay + 1) time = 0;
+
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).update();
 		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
 		}
-	}
-	
-	public void time() {
-		if(brightness < -230) {
-			day = false;
-			night = true;
-		}
-		if(brightness > 80) {
-			day = true;
-			night = false;
-		}
 		
-		if(night) {
-			brightness++;
+		gameTime.update();
+	}
+
+	public void time() {		
+		if(brightness > 0) brightness = 0;
+		if(brightness < -150) brightness = -150;
+		
+		if (gameTime.night) {
+			if(time % lengthChangeNightDay == 0) brightness--;			
 			return;
 		}
-		if(day) {
-			brightness--;
+		if (gameTime.day) {
+			if(time % lengthChangeNightDay == 0) brightness++;
 			return;
 		}
-		brightness++;
 	}
 
 	public void render(int xScroll, int yScroll, Screen screen) {
@@ -85,7 +87,7 @@ public class Level {
 				getTile(x, y).render(x, y, screen);
 			}
 		}
-		
+
 		left = xScroll >> 5;
 		top = yScroll >> 5;
 
@@ -102,6 +104,7 @@ public class Level {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).render(screen);
 		}
+		gameTime.render();
 	}
 
 	public void addEntity(Entity e) {
@@ -144,7 +147,8 @@ public class Level {
 
 		return collision;
 	}
-
+	
+	//getters
 	public List<Projectile> getProjectiles() {
 		return projectiles;
 	}
@@ -152,4 +156,6 @@ public class Level {
 	public List<Entity> getEntities() {
 		return entities;
 	}
+	
+	//setters
 }

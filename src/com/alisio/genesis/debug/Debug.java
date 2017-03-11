@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.mob.Player;
+import com.alisio.genesis.level.GameTime;
 import com.alisio.genesis.level.Level;
 import com.alisio.genesis.reader.XMLReader;
 
@@ -24,11 +25,12 @@ public class Debug {
 		//level
 		data.add(new DataLocation("Level",10,90));
 		data.add(new DataLocation("Name: " + level.name,15,110));
-		data.add(new DataLocation("Entities: " + level.getEntities().size(),15,130));
-		data.add(new DataLocation("Projectiles: " + level.getProjectiles().size(),15,150));
+		data.add(new DataLocation("Time: " + GameTime.getTime(),15,130));
+		data.add(new DataLocation("Entities: " + level.getEntities().size(),15,150));
+		data.add(new DataLocation("Projectiles: " + level.getProjectiles().size(),15,170));
 		
 		//Scenes
-		data.add(new DataLocation("Scenes",10,180));
-		data.add(new DataLocation("Trees: " + XMLReader.trees.size(),15,200));
+		data.add(new DataLocation("Scenes",10,200));
+		data.add(new DataLocation("Trees: " + XMLReader.trees.size(),15,220));
 	}
 }

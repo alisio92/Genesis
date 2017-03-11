@@ -19,11 +19,13 @@ public class KeyBoard implements KeyListener {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		this.keys[e.getKeyCode()] = true;
+		int code = e.getKeyCode();
+		if(code < 120) this.keys[code] = true;
 	}
 
 	public void keyReleased(KeyEvent e) {
-		this.keys[e.getKeyCode()] = false;
+		int code = e.getKeyCode();
+		if(code < 120) this.keys[code] = false;
 	}
 
 
