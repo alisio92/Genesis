@@ -6,6 +6,7 @@ public class Sprite {
 	public int[] pixels;
 	private SpriteSheet sheet;
 	public int xOffset, yOffset;
+	private int scale = 1;
 	
 	public Sprite(int size, int x, int y, SpriteSheet sheet){
 		this.width = size;
@@ -16,6 +17,19 @@ public class Sprite {
 		this.xOffset = 0;
 		this.yOffset = 0;
 		this.pixels = new int[size*size];
+		load();
+	}
+	
+	public Sprite(int size, int x, int y, SpriteSheet sheet, int scale){
+		this.width = size;
+		this.height = size;
+		this.x = x * size;
+		this.y = y * size;
+		this.sheet = sheet;		
+		this.xOffset = 0;
+		this.yOffset = 0;
+		this.scale = scale;
+		this.pixels = new int[size * scale * size * scale];
 		load();
 	}
 	
@@ -68,17 +82,23 @@ public class Sprite {
 	}
 	
 	public int getHeight() {
-		return height;
+		return height * scale;
 	}
 	
 	public int getWidth() {
-		return width;
+		return width * scale;
 	}
 
 	private void load() {
 		for(int y = 0; y < height;y++){
 			for(int x = 0; x < width;x++){
-				this.pixels[x+y*width] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
+				this.pixels[(x * scale) + (y * scale) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
+								
+				for (int i = 1; i < scale;i++){
+					this.pixels[((x * scale) + i) + ((y * scale)) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
+					this.pixels[((x * scale) + i) + ((y * scale) + i) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
+					this.pixels[((x * scale)) + ((y * scale) + i) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
+				}
 			}
 		}
 	}

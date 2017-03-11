@@ -9,18 +9,19 @@ import com.alisio.genesis.level.tile.Tile;
 
 public class TileObject {	
 	public int x,y;
-	public static final int BASE_SIZE = 5;
-	public static final int SIZE = (int)Math.pow(2, BASE_SIZE);
+	public int baseSize, size;
 	public Sprite sprite;
 	public String name;
 	
 	public static List<TileObject> listObjects = new ArrayList<TileObject>();
 	
-	public static SpriteSheet objects = new SpriteSheet("/" + Tile.SIZE + "/textures/objects.png",2);
+	public static SpriteSheet objects = new SpriteSheet("/" + Tile.SIZE + "/textures/objects.png");
 	
-	public TileObject(Sprite sprite, String name){
+	public TileObject(Sprite sprite, String name, int baseSize){
 		this.sprite = sprite;
 		this.name = name;
+		this.baseSize = baseSize;
+		this.size = (int)Math.pow(2, baseSize);
 	}
 	
 	public void render(int x, int y, Screen screen){

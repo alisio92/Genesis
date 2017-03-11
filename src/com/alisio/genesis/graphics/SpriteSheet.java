@@ -1,7 +1,5 @@
 package com.alisio.genesis.graphics;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -18,11 +16,11 @@ public class SpriteSheet {
 		load();
 	}
 	
-	public SpriteSheet(String path, double scale){
+	/*public SpriteSheet(String path, double scale){
 		this.path = path;
 		this.scale = 1.0 / scale;
 		load(this.scale);
-	}
+	}*/
 	
 	private void load(){
 		try {
@@ -37,7 +35,7 @@ public class SpriteSheet {
 		}
 	}
 	
-	private void load(double scale){
+	/*private void load(double scale){
 		try {
 			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
 			int w = image.getWidth();
@@ -50,9 +48,9 @@ public class SpriteSheet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
-	public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
+	/*public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
 	    Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
 	    BufferedImage image = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
 
@@ -61,5 +59,5 @@ public class SpriteSheet {
 	    g2d.dispose();
 
 	    return image;
-	} 
+	} */
 }

@@ -23,5 +23,6 @@ public class Resources {
 		TileObject.listObjects.add(VoidObject.object);
 		TileObject.listObjects.add(TreeObject.object);
 		TileObject.listObjects.add(PalmTreeObject.object);
+		TileObject.listObjects.add(GlowOrbObject.object);
 	}
 }

@@ -6,12 +6,12 @@ import com.alisio.genesis.level.tile.Tile;
 
 public class TreeObject extends TileObject {
 	
-	public static Sprite sprite = new Sprite(SIZE * 2,0,0,objects);
+	public static Sprite sprite = new Sprite(32,0,0,objects,2);
 	public static String name = "TreeObject";
-	public static TileObject object = new TreeObject(sprite,name);
+	public static TileObject object = new TreeObject(sprite,name,6);
 
-	public TreeObject(Sprite sprite, String name) {
-		super(sprite, name);
+	public TreeObject(Sprite sprite, String name, int baseSize) {
+		super(sprite, name,baseSize);
 	}
 	
 	public void render(int x, int y, Screen screen){

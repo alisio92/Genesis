@@ -44,4 +44,9 @@
     <locationx>13</locationx>
     <locationy>43</locationy>
   </tree>
+  <tree>
+    <name>GlowOrbObject</name>
+    <locationx>21</locationx>
+    <locationy>18</locationy>
+  </tree>
 </trees>

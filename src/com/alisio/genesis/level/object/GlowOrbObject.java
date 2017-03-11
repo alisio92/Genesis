@@ -4,14 +4,14 @@ import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.level.tile.Tile;
 
-public class VoidObject extends TileObject {
+public class GlowOrbObject extends TileObject {
 	
-	public static Sprite sprite = new Sprite(16,0xffff00ff);
-	public static String name = "VoidObject";
-	public static TileObject object = new VoidObject(sprite,name,4);
+	public static Sprite sprite = new Sprite(16,0,2,objects);
+	public static String name = "GlowOrbObject";
+	public static TileObject object = new GlowOrbObject(sprite,name,4);
 
-	public VoidObject(Sprite sprite, String name, int baseSize) {
-		super(sprite,name,baseSize);
+	public GlowOrbObject(Sprite sprite, String name, int baseSize) {
+		super(sprite, name,baseSize);
 	}
 	
 	public void render(int x, int y, Screen screen){
@@ -23,6 +23,6 @@ public class VoidObject extends TileObject {
 	}
 	
 	public boolean blocksShooting(){
-		return false;
+		return true;
 	}
 }
