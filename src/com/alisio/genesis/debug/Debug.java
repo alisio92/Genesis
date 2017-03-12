@@ -31,6 +31,6 @@ public class Debug {
 		
 		//Scenes
 		data.add(new DataLocation("Scenes",10,200));
-		data.add(new DataLocation("Trees: " + XMLReader.trees.size(),15,220));
+		data.add(new DataLocation("Trees: " + XMLReader.objects.stream().filter(x -> x.name.equals("TreeObject") || x.name.equals("PalmTreeObject")).count(),15,220));
 	}
 }

@@ -18,8 +18,6 @@ import com.alisio.genesis.input.Mouse;
 import com.alisio.genesis.level.BasicLevel;
 import com.alisio.genesis.level.Level;
 import com.alisio.genesis.level.TileLocation;
-import com.alisio.genesis.level.object.TileObject;
-import com.alisio.genesis.level.tile.Tile;
 import com.alisio.genesis.resource.Resources;
 
 public class Game extends Canvas implements Runnable{

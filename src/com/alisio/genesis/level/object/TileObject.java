@@ -5,6 +5,7 @@ import java.util.List;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
+import com.alisio.genesis.level.Level;
 import com.alisio.genesis.level.tile.Tile;
 
 public class TileObject {	
@@ -24,7 +25,7 @@ public class TileObject {
 		this.size = (int)Math.pow(2, baseSize);
 	}
 	
-	public void render(int x, int y, Screen screen){
+	public void render(int x, int y, Screen screen, Level level){
 		
 	}
 	

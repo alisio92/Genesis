@@ -5,6 +5,7 @@ import java.util.List;
 import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.entity.Projectile;
 import com.alisio.genesis.graphics.Screen;
+import com.alisio.genesis.level.object.LightObject;
 import com.alisio.genesis.level.object.TileObject;
 import com.alisio.genesis.level.tile.Tile;
 import com.alisio.genesis.level.tile.VoidTile;
@@ -19,9 +20,11 @@ public class Level {
 	private GameTime gameTime;
 	private int time = 0;
 	private int lengthChangeNightDay = 4;
+	private int timeSpeed = 0;
 
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
+	private List<LightObject> lightObjects = new ArrayList<LightObject>();
 
 	//cto
 	public Level(int width, int height) {
@@ -29,14 +32,14 @@ public class Level {
 		this.height = height;
 		this.tiles = new int[width * height];
 		generateLevel();
-		gameTime = new GameTime(1,72000,25200);
+		gameTime = new GameTime(72001,timeSpeed,72000,25200);
 	}
 
 	public Level(String path, String name) {
 		this.name = name;
 		loadLevel(path);
 		generateLevel();
-		gameTime = new GameTime(1,72000,25200);
+		gameTime = new GameTime(72001,timeSpeed,72000,25200);
 	}
 
 	protected void loadLevel(String path) {
@@ -94,7 +97,18 @@ public class Level {
 		for (int y = top; y < bottom; y++) {
 			for (int x = left; x < right; x++) {
 				TileObject o = getObject(x, y);
-				if (o != null) o.render(x, y, screen);
+				if (o != null) if(o.emitsLight()) lightObjects.add(new LightObject(x,y));
+			}
+		}
+		
+		for (int i = 0; i < lightObjects.size(); i++) {
+			lightObjects.get(i).render(screen, this);
+		}
+		
+		for (int y = top; y < bottom; y++) {
+			for (int x = left; x < right; x++) {
+				TileObject o = getObject(x, y);
+				if (o != null) o.render(x, y, screen,this);
 			}
 		}
 
@@ -104,7 +118,8 @@ public class Level {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).render(screen);
 		}
-		gameTime.render();
+		gameTime.render();	
+		lightObjects.clear();
 	}
 
 	public void addEntity(Entity e) {
@@ -127,8 +142,8 @@ public class Level {
 	public TileObject getObject(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return null;
 		for (int i = 0; i < TileObject.listObjects.size(); i++) {
-			for (int j = 0; j < XMLReader.trees.size(); j++) {
-				XMLObject o = XMLReader.trees.get(j);
+			for (int j = 0; j < XMLReader.objects.size(); j++) {
+				XMLObject o = XMLReader.objects.get(j);
 				if (x == o.x && y == o.y && TileObject.listObjects.get(i).name.equals(o.name))
 					return TileObject.listObjects.get(i);
 			}
@@ -155,6 +170,10 @@ public class Level {
 
 	public List<Entity> getEntities() {
 		return entities;
+	}
+	
+	public List<LightObject> getLightObjects() {
+		return lightObjects;
 	}
 	
 	//setters

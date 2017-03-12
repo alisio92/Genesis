@@ -138,10 +138,10 @@ public class Player extends Mob {
 	}
 	
 	public int getTileX() {
-		return ((int)(x + (WIDTH / 2)) >> Tile.BASE_SIZE);
+		return ((int)(x) >> Tile.BASE_SIZE);
 	}
 	
 	public int getTileY() {
-		return ((int)(y + (HEIGHT / 2)) >> Tile.BASE_SIZE);
+		return ((int)(y) >> Tile.BASE_SIZE);
 	}
 }

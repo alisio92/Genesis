@@ -1,52 +1,57 @@
-<trees>
-  <tree>
+<objects>
+  <object>
     <name>TreeObject</name>
     <locationx>20</locationx>
     <locationy>20</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>TreeObject</name>
     <locationx>24</locationx>
     <locationy>20</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>TreeObject</name>
     <locationx>20</locationx>
     <locationy>24</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>TreeObject</name>
     <locationx>24</locationx>
     <locationy>24</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>TreeObject</name>
     <locationx>34</locationx>
     <locationy>44</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>TreeObject</name>
     <locationx>32</locationx>
     <locationy>13</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>TreeObject</name>
     <locationx>21</locationx>
     <locationy>12</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>PalmTreeObject</name>
     <locationx>27</locationx>
     <locationy>50</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>PalmTreeObject</name>
     <locationx>13</locationx>
     <locationy>43</locationy>
-  </tree>
-  <tree>
+  </object>
+  <object>
     <name>GlowOrbObject</name>
     <locationx>21</locationx>
     <locationy>18</locationy>
-  </tree>
-</trees>
+  </object>
+  <object>
+    <name>GlowOrbObject</name>
+    <locationx>29</locationx>
+    <locationy>26</locationy>
+  </object>
+</objects>

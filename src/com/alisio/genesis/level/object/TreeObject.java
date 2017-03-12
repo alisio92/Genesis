@@ -2,6 +2,7 @@ package com.alisio.genesis.level.object;
 
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
+import com.alisio.genesis.level.Level;
 import com.alisio.genesis.level.tile.Tile;
 
 public class TreeObject extends TileObject {
@@ -14,8 +15,8 @@ public class TreeObject extends TileObject {
 		super(sprite, name,baseSize);
 	}
 	
-	public void render(int x, int y, Screen screen){
-		screen.renderObject(x << Tile.BASE_SIZE, y << Tile.BASE_SIZE, this);
+	public void render(int x, int y, Screen screen, Level level){
+		screen.renderObject(x << Tile.BASE_SIZE, y << Tile.BASE_SIZE, this, level);
 	}
 	
 	public boolean walkable(){

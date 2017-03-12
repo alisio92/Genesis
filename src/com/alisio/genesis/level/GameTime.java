@@ -8,16 +8,17 @@ public class GameTime {
 	private int maxTime = 86400; // 24 uur
 	private int timeSpeed = 1;
 	
-	public static int time = 28800; // 8 uur
-	public int turnDark = 72000; // 20 uur
-	public int turnLight = 25200; // 7 uur
+	public static int time = 28800; // 8 uur 28800
+	public int turnDark = 72000; // 20 uur 72000
+	public int turnLight = 25200; // 7 uur 25200
 	public boolean day, night;
 	
 	
 	public GameTime() {
 	}
 	
-	public GameTime(int timeSpeed, int turnDark, int turnLight) {
+	public GameTime(int startTime,int timeSpeed, int turnDark, int turnLight) {
+		time = startTime;
 		this.timeSpeed = timeSpeed;
 		this.turnDark = turnDark;
 		this.turnLight = turnLight;
