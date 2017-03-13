@@ -30,6 +30,11 @@ public class Screen {
 	public void renderObject(int xLoc, int yLoc, TileObject object, Level level) {
 		xLoc -= XOffset;
 		yLoc -= yOffset;
+		
+		int tb = Level.brightness;
+		if(tb < -240) tb = -240;
+		if(tb > 0) tb = 0;
+		
 		for (int y = 0; y < object.sprite.getHeight(); y++) {
 			int yy = y + yLoc;
 			for (int x = 0; x < object.sprite.getWidth(); x++) {
@@ -42,20 +47,42 @@ public class Screen {
 						List<LightObject> objects = level.getLightObjects();
 						if (objects != null && objects.size() > 0) {
 							boolean pointswithinborder = false;
+							LightObject lo = null;
+							int distanceX = 100, distanceY = 100;
 							for (int i = 0; i < objects.size(); i++) {
 								LightObject o = objects.get(i);
 
-								int xLeft = o.getTileX() - XOffset;
+								int xLeft = o.getX() - XOffset;
 								int xRight = xLeft + Tile.SIZE - 1;
-								int yTop = o.getTileY() - yOffset;
-								int yBottom = yTop + Tile.SIZE - 1;
+								int yTop = o.getY() - yOffset;
+								int yBottom = yTop + Tile.SIZE - 1;						
 
 								if (xx < (xLeft - o.getRadius()) || xx > (xRight + o.getRadius())
 										|| yy < (yTop - o.getRadius()) || yy > (yBottom + o.getRadius())) {
-								} else pointswithinborder = true;
+								} else {
+									pointswithinborder = true;
+									lo = o;
+									int xLight = o.getX() - (XOffset);
+									int xObject = xx;
+			
+									int yLight = o.getY() - (yOffset);
+									int yObject = yy;
+									
+									int xDelta = Math.abs(xLight - xObject);
+									int yDelta = Math.abs(yLight - yObject);
+			
+									if(xDelta < distanceX) distanceX = xDelta;
+									if(yDelta < distanceY) distanceY = yDelta;
+								}
 							}
 
 							if (!pointswithinborder) col = changeBrightness(col, Level.brightness);
+							else {							
+								int xxx = distanceX >> Tile.BASE_SIZE;
+								int yyy = distanceY >> Tile.BASE_SIZE;
+								double intensity = Math.abs((Math.pow(xxx * Math.PI,2) + Math.pow(yyy * Math.PI,2))) * tb * 0.00018;	
+								col = tint(col, (int) (lo.red * intensity), (int) (lo.green * intensity), (int) (lo.blue * intensity));
+							}
 
 						} else col = changeBrightness(col, Level.brightness);
 					}
