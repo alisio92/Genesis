@@ -20,7 +20,8 @@ public class Level {
 	private GameTime gameTime;
 	private int time = 0;
 	private int lengthChangeNightDay = 4;
-	private int timeSpeed = 0;
+	private int timeSpeed = 1;
+	private int startTime = 28800; // 8 uur 28800
 
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
@@ -32,14 +33,14 @@ public class Level {
 		this.height = height;
 		this.tiles = new int[width * height];
 		generateLevel();
-		gameTime = new GameTime(72001,timeSpeed,72000,25200);
+		gameTime = new GameTime(startTime,timeSpeed,72000,25200);
 	}
 
 	public Level(String path, String name) {
 		this.name = name;
 		loadLevel(path);
 		generateLevel();
-		gameTime = new GameTime(72001,timeSpeed,72000,25200);
+		gameTime = new GameTime(startTime,timeSpeed,72000,25200);
 	}
 
 	protected void loadLevel(String path) {
@@ -93,6 +94,10 @@ public class Level {
 
 		left = xScroll >> 5;
 		top = yScroll >> 5;
+		
+		//lighting
+		bottom = bottom + 3;
+		right = right + 3;
 
 		for (int y = top; y < bottom; y++) {
 			for (int x = left; x < right; x++) {
