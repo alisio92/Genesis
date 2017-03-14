@@ -1,6 +1,7 @@
 package com.alisio.genesis.entity.projectile;
 
 import com.alisio.genesis.Game;
+import com.alisio.genesis.entity.spawner.ParticleSpawner;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.level.tile.Tile;
@@ -22,7 +23,10 @@ public class SphereProjectile extends Projectile {
 	}
 
 	public void update() {
-		if(level.tileCollision(x, y, nx, ny, 16)) remove();
+		if(level.tileCollision(x, y, nx, ny, 16)) {
+			level.add(new ParticleSpawner((int)x,(int)y, 50, 50, level));
+			remove();
+		}
 		move();
 	}
 

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.entity.particle.Particle;
-import com.alisio.genesis.entity.projectile.*;
-import com.alisio.genesis.entity.spawner.EntitySpawner;
+import com.alisio.genesis.entity.projectile.Projectile;
 import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.level.object.*;
-import com.alisio.genesis.level.tile.*;
+import com.alisio.genesis.level.object.LightObject;
+import com.alisio.genesis.level.object.TileObject;
+import com.alisio.genesis.level.tile.Tile;
+import com.alisio.genesis.level.tile.VoidTile;
 import com.alisio.genesis.reader.XMLObject;
 import com.alisio.genesis.reader.XMLReader;
 
@@ -42,7 +43,6 @@ public class Level {
 		loadLevel(path);
 		generateLevel();
 		gameTime = new GameTime(startTime,timeSpeed,72000,25200);
-		add(new EntitySpawner(19*16, 11*16, EntitySpawner.Type.PARTICLE, 50, this));
 	}
 
 	protected void loadLevel(String path) {
@@ -68,6 +68,21 @@ public class Level {
 		}
 		
 		gameTime.update();
+		remove();
+	}
+	
+	private void remove(){
+		if(time > lengthChangeNightDay + 1) time = 0;
+
+		for (int i = 0; i < entities.size(); i++) {
+			if(entities.get(i).isRemoved()) entities.remove(i);
+		}
+		for (int i = 0; i < projectiles.size(); i++) {
+			if(projectiles.get(i).isRemoved()) projectiles.remove(i);
+		}
+		for (int i = 0; i < particles.size(); i++) {
+			if(particles.get(i).isRemoved()) particles.remove(i);
+		}
 	}
 
 	public void time() {		
