@@ -1,4 +1,4 @@
-package com.alisio.genesis.entity;
+package com.alisio.genesis.entity.projectile;
 
 import com.alisio.genesis.Game;
 import com.alisio.genesis.graphics.Screen;

@@ -1,6 +1,7 @@
-package com.alisio.genesis.entity;
+package com.alisio.genesis.entity.projectile;
 
 import java.util.Random;
+import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
 import com.alisio.genesis.level.tile.Tile;

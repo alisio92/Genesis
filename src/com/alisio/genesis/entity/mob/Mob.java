@@ -1,8 +1,8 @@
 package com.alisio.genesis.entity.mob;
 
 import com.alisio.genesis.entity.Entity;
-import com.alisio.genesis.entity.Projectile;
-import com.alisio.genesis.entity.SphereProjectile;
+import com.alisio.genesis.entity.projectile.Projectile;
+import com.alisio.genesis.entity.projectile.SphereProjectile;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.level.object.TileObject;
@@ -46,7 +46,7 @@ public abstract class Mob extends Entity {
 
 	protected void shoot(int x, int y, double direction) {
 		Projectile p = new SphereProjectile(x, y, direction);
-		level.addProjectile(p);
+		level.add(p);
 	}
 
 	public void render(Screen screen) {

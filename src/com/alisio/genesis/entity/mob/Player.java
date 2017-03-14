@@ -1,8 +1,8 @@
 package com.alisio.genesis.entity.mob;
 
 import com.alisio.genesis.Game;
-import com.alisio.genesis.entity.Projectile;
-import com.alisio.genesis.entity.SphereProjectile;
+import com.alisio.genesis.entity.projectile.Projectile;
+import com.alisio.genesis.entity.projectile.SphereProjectile;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;

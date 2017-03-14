@@ -3,12 +3,12 @@ package com.alisio.genesis.level;
 import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.Entity;
-import com.alisio.genesis.entity.Projectile;
+import com.alisio.genesis.entity.particle.Particle;
+import com.alisio.genesis.entity.projectile.*;
+import com.alisio.genesis.entity.spawner.EntitySpawner;
 import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.level.object.LightObject;
-import com.alisio.genesis.level.object.TileObject;
-import com.alisio.genesis.level.tile.Tile;
-import com.alisio.genesis.level.tile.VoidTile;
+import com.alisio.genesis.level.object.*;
+import com.alisio.genesis.level.tile.*;
 import com.alisio.genesis.reader.XMLObject;
 import com.alisio.genesis.reader.XMLReader;
 
@@ -25,6 +25,7 @@ public class Level {
 
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
+	private List<Particle> particles = new ArrayList<Particle>();
 	private List<LightObject> lightObjects = new ArrayList<LightObject>();
 
 	//cto
@@ -41,6 +42,7 @@ public class Level {
 		loadLevel(path);
 		generateLevel();
 		gameTime = new GameTime(startTime,timeSpeed,72000,25200);
+		add(new EntitySpawner(19*16, 11*16, EntitySpawner.Type.PARTICLE, 50, this));
 	}
 
 	protected void loadLevel(String path) {
@@ -60,6 +62,9 @@ public class Level {
 		}
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).update();
+		}
+		for (int i = 0; i < particles.size(); i++) {
+			particles.get(i).update();
 		}
 		
 		gameTime.update();
@@ -123,17 +128,23 @@ public class Level {
 		for (int i = 0; i < projectiles.size(); i++) {
 			projectiles.get(i).render(screen);
 		}
+		for (int i = 0; i < particles.size(); i++) {
+			particles.get(i).render(screen);
+		}
 		gameTime.render();	
 		lightObjects.clear();
 	}
 
-	public void addEntity(Entity e) {
-		entities.add(e);
-	}
-
-	public void addProjectile(Projectile p) {
-		p.init(this);
-		projectiles.add(p);
+	public void add(Entity e) {
+		e.init(this);
+		if(e instanceof Particle) {
+			particles.add((Particle)e);
+		} else if(e instanceof Projectile) {
+			projectiles.add((Projectile)e);
+		}
+		else{
+			entities.add(e);
+		}
 	}
 
 	public Tile getTile(int x, int y) {

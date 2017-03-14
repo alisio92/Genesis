@@ -81,7 +81,7 @@ public class Screen {
 								int xxx = distanceX >> Tile.BASE_SIZE;
 								int yyy = distanceY >> Tile.BASE_SIZE;
 								double intensity = Math.abs((Math.pow(xxx * Math.PI,2) + Math.pow(yyy * Math.PI,2))) * tb * 0.00018;	
-								col = tint(col, (int) (lo.red * intensity), (int) (lo.green * intensity), (int) (lo.blue * intensity));
+								col = tint(col, lo.red * intensity, lo.green * intensity, lo.blue * intensity);
 							}
 
 						} else col = changeBrightness(col, Level.brightness);
@@ -169,7 +169,7 @@ public class Screen {
 				if (xx < -tile.sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
 				if (xx < 0) xx = 0;
 				int col = tile.sprite.pixels[x + y * tile.sprite.getWidth()];
-				col = tint(col, (int) (r * intensity), (int) (g * intensity), (int) (b * intensity));
+				col = tint(col, r * intensity, g * intensity, b * intensity);
 				this.pixels[xx + yy * width] = col;
 			}
 		}
@@ -195,14 +195,14 @@ public class Screen {
 		return r << 16 | g << 8 | b;
 	}
 
-	public int tint(int col, int red, int green, int blue) {
+	public int tint(int col, double red, double green, double blue) {
 		int r = (col & 0xff0000) >> 16;
 		int g = (col & 0xff00) >> 8;
 		int b = (col & 0xff);
 
-		r += red;
-		g += green;
-		b += blue;
+		r += (int)red;
+		g += (int)green;
+		b += (int)blue;
 
 		if (r < 0) r = 0;
 		if (g < 0) g = 0;
