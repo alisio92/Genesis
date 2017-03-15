@@ -7,7 +7,7 @@ import com.alisio.genesis.level.tile.Tile;
 
 public class TreeObject extends TileObject {
 	
-	public static Sprite sprite = new Sprite(32,0,0,objects,2);
+	public static Sprite sprite = new Sprite(32,0,0,3,0,objects,2);
 	public static String name = "TreeObject";
 	public static TileObject object = new TreeObject(sprite,name,6);
 

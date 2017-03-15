@@ -3,6 +3,8 @@ package com.alisio.genesis.entity.particle;
 import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
+import com.alisio.genesis.level.object.TileObject;
+import com.alisio.genesis.level.tile.Tile;
 
 public class Particle extends Entity {
 	
@@ -22,8 +24,7 @@ public class Particle extends Entity {
 		this.yy = y;
 		this.sprite = particle;
 		this.life = life + (random.nextInt(20) - 10);
-		this.xa = random.nextGaussian() + 1.8;
-		if(xa < 0) xa = 0.1;
+		this.xa = random.nextGaussian();
 		this.ya = random.nextGaussian();
 		this.zz = random.nextFloat() + 2.0;
 	}
@@ -41,12 +42,67 @@ public class Particle extends Entity {
 			ya *= 0.4;
 		}
 		
+		move(xx+xa,(yy + ya) + (zz+za));
+	}
+	
+	private void move(double x, double y) {
+		if(collision(x,y) || collisionOverlay(x,y)) {
+			this.xx *= -0.5;
+			this.yy *= -0.5;
+			this.zz *= -0.5;
+		}
 		this.xx += xa;
 		this.yy += ya;
 		this.zz += za;
 	}
 	
+	public boolean collision(double x, double y) {
+		boolean collision = false;
+
+		for (int i = 0; i < Tile.BASE_SIZE; i++) {
+			double xt = (x - i % 2 * Tile.SIZE) / Tile.SIZE;
+			double yt = (y - i / 2 * Tile.SIZE) / Tile.SIZE;
+			int xx = (int) Math.ceil(xt);
+			int yy = (int) Math.ceil(yt);
+			if(i % 2 == 0) xx = (int) Math.floor(xt);
+			if(i / 2 == 0) yy = (int) Math.floor(yt);
+			if (level.getTile(xx, yy).blocksShooting()) collision = true;
+		}
+
+		return collision;
+	}
+	
+	private boolean collisionOverlay(double x, double y) {
+		boolean collision = false;
+		
+		for (int i = 0; i < Tile.BASE_SIZE; i++) {
+			double xt = (x - i % 2 * Tile.SIZE) / Tile.SIZE;
+			double yt = (y - i / 2 * Tile.SIZE) / Tile.SIZE;
+			int xx = (int) Math.ceil(xt);
+			int yy = (int) Math.ceil(yt);
+			if(i % 2 == 0) xx = (int) Math.floor(xt);
+			if(i / 2 == 0) yy = (int) Math.floor(yt);
+			TileObject temp = level.getObjectCollision(xx,yy);
+			
+			if(temp != null) {
+				x -= temp.sprite.getStartX();
+				y -= temp.sprite.getStartY();
+			}
+			
+			xt = (x - i % 2 * Tile.SIZE) / Tile.SIZE;
+			yt = (y - i / 2 * Tile.SIZE) / Tile.SIZE;
+			xx = (int) Math.ceil(xt);
+			yy = (int) Math.ceil(yt);
+			if(i % 2 == 0) xx = (int) Math.floor(xt);
+			if(i / 2 == 0) yy = (int) Math.floor(yt);
+			TileObject o = level.getObjectCollision(xx,yy);			
+			if (o != null && o.blocksShooting()) collision = true;
+		}
+
+		return collision;
+	}
+
 	public void render(Screen screen) {
-		screen.renderSprite((int)xx - 12,(int)yy - (int)zz,sprite,false);
+		screen.renderSprite((int)xx-1,(int)yy - (int)zz - 1,sprite,false);
 	}
 }

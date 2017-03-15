@@ -2,6 +2,7 @@ package com.alisio.genesis.graphics;
 
 public class Sprite {
 	private int width, height;
+	private int startX, startY;
 	private int x,y;
 	public int[] pixels;
 	private SpriteSheet sheet;
@@ -29,6 +30,21 @@ public class Sprite {
 		this.xOffset = 0;
 		this.yOffset = 0;
 		this.scale = scale;
+		this.pixels = new int[size * scale * size * scale];
+		load();
+	}
+	
+	public Sprite(int size, int x, int y, int startX, int startY,SpriteSheet sheet, int scale){
+		this.width = size;
+		this.height = size;
+		this.x = x * size;
+		this.y = y * size;
+		this.sheet = sheet;		
+		this.xOffset = 0;
+		this.yOffset = 0;
+		this.scale = scale;
+		this.startX = startX;
+		this.startY = startY;
 		this.pixels = new int[size * scale * size * scale];
 		load();
 	}
@@ -87,6 +103,14 @@ public class Sprite {
 	
 	public int getWidth() {
 		return width * scale;
+	}
+	
+	public int getStartX() {
+		return startX;
+	}
+	
+	public int getStartY() {
+		return startY;
 	}
 
 	private void load() {

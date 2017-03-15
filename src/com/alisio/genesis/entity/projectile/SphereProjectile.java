@@ -23,7 +23,9 @@ public class SphereProjectile extends Projectile {
 	}
 
 	public void update() {
-		if(level.tileCollision(x, y, nx, ny, 16)) {
+		//xoffset = pink pixels x-as to object
+		//yoffset = pink pixels y-as to object
+		if(level.tileCollision((int)(x + nx), (int)(y + ny), 7,5,4) || level.objectCollision((int)(x + nx), (int)(y + ny), 7,5,4)) {
 			level.add(new ParticleSpawner((int)x,(int)y, 50, 50, level));
 			remove();
 		}

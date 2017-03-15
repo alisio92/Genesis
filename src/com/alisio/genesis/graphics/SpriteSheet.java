@@ -16,12 +16,6 @@ public class SpriteSheet {
 		load();
 	}
 	
-	/*public SpriteSheet(String path, double scale){
-		this.path = path;
-		this.scale = 1.0 / scale;
-		load(this.scale);
-	}*/
-	
 	private void load(){
 		try {
 			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
@@ -34,30 +28,4 @@ public class SpriteSheet {
 			System.out.println("Could not load resource file from " + path + "!");
 		}
 	}
-	
-	/*private void load(double scale){
-		try {
-			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
-			int w = image.getWidth();
-			int h = image.getHeight();
-			image = resize(image,(int)(w / scale), (int)(h / scale));
-			this.Width = image.getWidth();
-			this.Height = image.getHeight();
-			this.pixels = new int[Width * Height];
-			image.getRGB(0, 0,Width,Height,pixels,0,Width);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}*/
-	
-	/*public static BufferedImage resize(BufferedImage img, int newW, int newH) { 
-	    Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_SMOOTH);
-	    BufferedImage image = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
-
-	    Graphics2D g2d = image.createGraphics();
-	    g2d.drawImage(tmp, 0, 0, null);
-	    g2d.dispose();
-
-	    return image;
-	} */
 }

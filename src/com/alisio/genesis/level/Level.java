@@ -181,17 +181,59 @@ public class Level {
 		}
 		return null;
 	}
-
-	public boolean tileCollision(double x, double y, double xTo, double yTo, double size) {
+	
+	public boolean objectCollision(int x, int y, int size, int xOffset, int yOffset) {
 		boolean collision = false;
 
 		for (int i = 0; i < Tile.BASE_SIZE; i++) {
-			double xt = (((int) x + (int) xTo) + i % 2 * size / 2 - 5) / Tile.SIZE;
-			double yt = (((int) y + (int) yTo) + i / 2 * size / 2 - 8) / Tile.SIZE;
-			if (getTile((int) xt, (int) yt).blocksShooting()) collision = true;
+			int xt = (x - i % 2 * size + xOffset) >> Tile.BASE_SIZE;
+			int yt = (y - i / 2 * size + yOffset) >> Tile.BASE_SIZE;
+			TileObject temp = getObjectCollision(xt, yt);
+			
+			if(temp != null) {
+				xt = (x - i % 2 * size + xOffset - temp.sprite.getStartX()) >> Tile.BASE_SIZE;
+				yt = (y - i / 2 * size + yOffset - temp.sprite.getStartY()) >> Tile.BASE_SIZE;			
+			}
+			
+			TileObject o = getObjectCollision(xt, yt);
+			if (o != null && !o.walkable()) collision = true;
 		}
 
 		return collision;
+	}
+	
+	public boolean tileCollision(int x, int y, int size, int xOffset, int yOffset) {
+		boolean collision = false;
+
+		for (int i = 0; i < Tile.BASE_SIZE; i++) {
+			int xt = (x - i % 2 * size + xOffset) >> Tile.BASE_SIZE;
+			int yt = (y - i / 2 * size + yOffset) >> Tile.BASE_SIZE;
+			if (getTile(xt, yt).blocksShooting()) collision = true;
+		}
+
+		return collision;
+	}
+	
+	public TileObject getObjectCollision(int x, int y) {
+		int radius = 4;
+		for (int yy = 0; yy < radius; yy++) {
+			for (int xx = 0; xx < radius; xx++) {
+				TileObject o = getObject(x - xx, y - yy);
+				if (o != null) {
+					int newradius = o.sprite.getWidth() / 16;
+					if (newradius == radius) return o;
+					else {
+						for (int yyNew = 0; yyNew < newradius; yyNew++) {
+							for (int xxNew = 0; xxNew < newradius; xxNew++) {
+								TileObject oNew = getObject(x - xxNew, y - yyNew);
+								if (o != null) return oNew;
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 	
 	//getters

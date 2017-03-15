@@ -65,39 +65,17 @@ public abstract class Mob extends Entity {
 		return collision;
 	}
 
-	public boolean collisionOverlay(int xTo, int yTo) {
+	private boolean collisionOverlay(int xTo, int yTo) {
 		boolean collision = false;
 
 		for (int i = 0; i < Tile.BASE_SIZE; i++) {
 			double xt = ((x + xTo)) / Tile.SIZE;
 			double yt = ((y + yTo)) / Tile.SIZE;
-			TileObject o = getObjectCollision((int) xt, (int) yt); // level.getObject((int)xt,(int)yt);
+			TileObject o = level.getObjectCollision((int) xt, (int) yt); // level.getObject((int)xt,(int)yt);
 			if (o != null && !o.walkable()) collision = true;
 		}
 
 		return collision;
-	}
-
-	private TileObject getObjectCollision(int x, int y) {
-		int radius = 4;
-		for (int yy = 0; yy < radius; yy++) {
-			for (int xx = 0; xx < radius; xx++) {
-				TileObject o = level.getObject(x - xx, y - yy);
-				if (o != null) {
-					int newradius = o.sprite.getWidth() / 16;
-					if (newradius == radius) return o;
-					else {
-						for (int yyNew = 0; yyNew < newradius; yyNew++) {
-							for (int xxNew = 0; xxNew < newradius; xxNew++) {
-								TileObject oNew = level.getObject(x - xxNew, y - yyNew);
-								if (o != null) return oNew;
-							}
-						}
-					}
-				}
-			}
-		}
-		return null;
 	}
 
 	public void setAnimationSpeed(int animationSpeed) {
