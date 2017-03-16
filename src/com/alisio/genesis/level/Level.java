@@ -21,7 +21,7 @@ public class Level {
 	private GameTime gameTime;
 	private int time = 0;
 	private int lengthChangeNightDay = 4;
-	private int timeSpeed = 100;
+	private int timeSpeed = 10;
 	private int startTime = 28800; // 8 uur 28800
 
 	private List<Entity> entities = new ArrayList<Entity>();
@@ -215,18 +215,22 @@ public class Level {
 	}
 	
 	public TileObject getObjectCollision(int x, int y) {
-		int radius = 4;
+		int radius = 8;
 		for (int yy = 0; yy < radius; yy++) {
 			for (int xx = 0; xx < radius; xx++) {
 				TileObject o = getObject(x - xx, y - yy);
 				if (o != null) {
 					int newradius = o.sprite.getWidth() / 16;
-					if (newradius == radius) return o;
+					if (newradius == radius) {
+						System.out.println(newradius);
+						return o;
+					}
 					else {
+						System.out.println(newradius);
 						for (int yyNew = 0; yyNew < newradius; yyNew++) {
 							for (int xxNew = 0; xxNew < newradius; xxNew++) {
 								TileObject oNew = getObject(x - xxNew, y - yyNew);
-								if (o != null) return oNew;
+								if (oNew != null) return oNew;
 							}
 						}
 					}

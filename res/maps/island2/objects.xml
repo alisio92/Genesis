@@ -54,4 +54,9 @@
     <locationx>29</locationx>
     <locationy>26</locationy>
   </object>
+  <object>
+    <name>ShopObject</name>
+    <locationx>35</locationx>
+    <locationy>21</locationy>
+  </object>
 </objects>
