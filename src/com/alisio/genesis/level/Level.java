@@ -222,11 +222,9 @@ public class Level {
 				if (o != null) {
 					int newradius = o.sprite.getWidth() / 16;
 					if (newradius == radius) {
-						System.out.println(newradius);
 						return o;
 					}
 					else {
-						System.out.println(newradius);
 						for (int yyNew = 0; yyNew < newradius; yyNew++) {
 							for (int xxNew = 0; xxNew < newradius; xxNew++) {
 								TileObject oNew = getObject(x - xxNew, y - yyNew);

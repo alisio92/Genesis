@@ -5,9 +5,15 @@ public class Sprite {
 	private int startX, startY;
 	private int x,y;
 	public int[] pixels;
-	private SpriteSheet sheet;
+	protected SpriteSheet sheet;
 	public int xOffset, yOffset;
 	private int scale = 1;
+	
+	protected Sprite(SpriteSheet sheet, int width, int height) {
+		this.width = width;
+		this.height = height;
+		this.sheet = sheet;
+	}
 	
 	public Sprite(int size, int x, int y, SpriteSheet sheet){
 		this.width = size;
@@ -89,6 +95,12 @@ public class Sprite {
 		this.yOffset = 0;
 		this.pixels = new int[width*height];
 		setColor(color);
+	}
+
+	public Sprite(int[] pixels, int width, int height) {
+		this.width = width;
+		this.height = height;
+		this.pixels = pixels;
 	}
 
 	private void setColor(int color) {

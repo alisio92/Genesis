@@ -1,55 +1,39 @@
 package com.alisio.genesis.entity.mob;
 
 import com.alisio.genesis.Game;
-import com.alisio.genesis.entity.projectile.Projectile;
-import com.alisio.genesis.entity.projectile.SphereProjectile;
-import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.graphics.Sprite;
-import com.alisio.genesis.graphics.SpriteSheet;
-import com.alisio.genesis.input.KeyBoard;
-import com.alisio.genesis.input.Mouse;
+import com.alisio.genesis.entity.projectile.*;
+import com.alisio.genesis.graphics.AnimatedSprite;
+import com.alisio.genesis.graphics.*;
+import com.alisio.genesis.input.*;
 import com.alisio.genesis.level.tile.Tile;
 
 public class Player extends Mob {
 
 	private KeyBoard input;
 	private Sprite sprite;
+	private AnimatedSprite animSprite = null;
 
 	public static final int WIDTH = 32;
 	public static final int HEIGHT = 32;
 
 	public static SpriteSheet player = new SpriteSheet("/player/player.png");
-
-	/*
-	 * public static Sprite playerUp = new Sprite(WIDTH,HEIGHT,4,0,11,0,player);
-	 * public static Sprite playerDown = new Sprite(WIDTH,HEIGHT,0,0,player);
-	 * public static Sprite playerLeft = new
-	 * Sprite(WIDTH,HEIGHT,0,3,0,-4,player); public static Sprite playerRight =
-	 * new Sprite(WIDTH,HEIGHT,0,3,0,16,player);
-	 */
-
-	public static Sprite playerDown = new Sprite(WIDTH, HEIGHT, 0, 0, player);
-	public static Sprite playerUp = new Sprite(WIDTH, HEIGHT, 1, 0, player);
-	public static Sprite playerLeft = new Sprite(WIDTH, HEIGHT, 2, 0, player);
-	public static Sprite playerRight = new Sprite(WIDTH, HEIGHT, 3, 0, player);
-
-	public static Sprite playerDown1 = new Sprite(WIDTH, HEIGHT, 0, 1, player);
-	public static Sprite playerUp1 = new Sprite(WIDTH, HEIGHT, 1, 1, player);
-	public static Sprite playerLeft1 = new Sprite(WIDTH, HEIGHT, 2, 1, player);
-	public static Sprite playerRight1 = new Sprite(WIDTH, HEIGHT, 3, 1, player);
-
-	public static Sprite playerDown2 = new Sprite(WIDTH, HEIGHT, 0, 2, player);
-	public static Sprite playerUp2 = new Sprite(WIDTH, HEIGHT, 1, 2, player);
-	public static Sprite playerLeft2 = new Sprite(WIDTH, HEIGHT, 2, 2, player);
-	public static Sprite playerRight2 = new Sprite(WIDTH, HEIGHT, 3, 2, player);
+	public static SpriteSheet playerDown = new SpriteSheet(player,0,0,1,3,32);
+	public static SpriteSheet playerUp = new SpriteSheet(player,1,0,1,3,32);
+	public static SpriteSheet playerRight = new SpriteSheet(player,3,0,1,3,32);
+	public static SpriteSheet playerLeft = new SpriteSheet(player,2,0,1,3,32);
+	
+	private AnimatedSprite down = new AnimatedSprite(playerDown,32,32,3);
+	private AnimatedSprite up = new AnimatedSprite(playerUp,32,32,3);
+	private AnimatedSprite right = new AnimatedSprite(playerRight,32,32,3);
+	private AnimatedSprite left = new AnimatedSprite(playerLeft,32,32,3);
 
 	public Player(int x, int y, KeyBoard input) {
 		this.x = x;
 		this.y = y;
 		this.input = input;
 		this.movingSpeed = 1;
-		setAnimationSpeed(90);
-		firerate = SphereProjectile.FIRE_RATE;
+		this.firerate = SphereProjectile.FIRE_RATE;
+		this.animSprite = up;
 	}
 
 	public Player(KeyBoard input) {
@@ -57,17 +41,13 @@ public class Player extends Mob {
 		this.x = 0;
 		this.y = 0;
 		this.movingSpeed = 1;
-		setAnimationSpeed(90);
-		firerate = SphereProjectile.FIRE_RATE;
+		this.firerate = SphereProjectile.FIRE_RATE;
+		this.animSprite = up;
 	}
 
 	public void update() {
-		if(firerate > 0) firerate--;
-		
+		if(firerate > 0) firerate--;		
 		int xx = 0, yy = 0;
-
-		if (timer < getAnimationSpeed()) timer++;
-		else timer = 0;
 
 		if (input.up) yy -= movingSpeed;
 		if (input.down) yy += movingSpeed;
@@ -77,12 +57,18 @@ public class Player extends Mob {
 		if (xx != 0 || yy != 0) {
 			move(xx, yy);
 			moving = true;
-
-			if (timer % (getAnimationSpeed()+1) == getAnimationSpeed()) {
-				if (animation >=2) animation = 0;
-				else animation++;
-			}
-		} else moving = false;
+			animSprite.setAnimationSpeed(90);
+			animSprite.update();
+		
+			if (direction == 0) animSprite = up;
+			if (direction == 1) animSprite = right;
+			if (direction == 2) animSprite = down;
+			if (direction == 3) animSprite = left;
+			
+		} else {
+			moving = false;
+			animSprite.setSprite(0);
+		}
 		clear();
 		shooting();
 	}
@@ -105,35 +91,7 @@ public class Player extends Mob {
 	}
 
 	public void render(Screen screen) {
-		if (direction == 0) {
-			sprite = playerUp;
-			if (moving) {
-				if (animation == 1) sprite = playerUp1;
-				else if (animation == 2) sprite = playerUp2;
-			}
-		}
-		if (direction == 2) {
-			sprite = playerDown;
-			if (moving) {
-				if (animation == 1) sprite = playerDown1;
-				else if (animation == 2) sprite = playerDown2;
-			}
-		}
-		if (direction == 3) {
-			sprite = playerLeft;
-			if (moving) {
-				if (animation == 1) sprite = playerLeft1;
-				else if (animation == 2) sprite = playerLeft2;
-			}
-		}
-		if (direction == 1) {
-			sprite = playerRight;
-			if (moving) {
-				if (animation == 1) sprite = playerRight1;
-				else if (animation == 2) sprite = playerRight2;
-			}
-		}
-
+	    sprite = animSprite.getSprite();
 		screen.renderPlayer((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
 	}
 	

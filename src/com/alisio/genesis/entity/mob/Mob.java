@@ -12,14 +12,7 @@ public abstract class Mob extends Entity {
 
 	protected Sprite sprite;
 	protected int direction = 0;
-	protected int timer = 0;
-
-	protected int animation = 0;
-	private int animationSpeed = 0;
-	protected int maxAnimationSpeed = 100;
-
 	protected int firerate = 0;
-
 	protected boolean moving = false;
 	protected int movingSpeed = 0;
 
@@ -76,14 +69,5 @@ public abstract class Mob extends Entity {
 		}
 
 		return collision;
-	}
-
-	public void setAnimationSpeed(int animationSpeed) {
-		if (animationSpeed <= maxAnimationSpeed) this.animationSpeed = animationSpeed;
-		else this.animationSpeed = maxAnimationSpeed;
-	}
-
-	public int getAnimationSpeed() {
-		return maxAnimationSpeed - animationSpeed;
 	}
 }
