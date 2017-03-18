@@ -9,7 +9,7 @@ public class TreeObject extends TileObject {
 	
 	public static Sprite sprite = new Sprite(32,0,0,3,0,objects,2);
 	public static String name = "TreeObject";
-	public static TileObject object = new TreeObject(sprite,name,6);
+	public static TreeObject object = new TreeObject(sprite,name,6);
 
 	public TreeObject(Sprite sprite, String name, int baseSize) {
 		super(sprite, name,baseSize);
@@ -25,5 +25,13 @@ public class TreeObject extends TileObject {
 	
 	public boolean blocksShooting(){
 		return true;
+	}
+
+	public boolean breakable() {
+		return false;
+	}
+
+	public boolean emitsLight() {
+		return false;
 	}
 }

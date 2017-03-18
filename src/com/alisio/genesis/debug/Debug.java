@@ -6,7 +6,6 @@ import java.util.List;
 import com.alisio.genesis.entity.mob.Player;
 import com.alisio.genesis.level.GameTime;
 import com.alisio.genesis.level.Level;
-import com.alisio.genesis.reader.XMLReader;
 
 public class Debug {
 	
@@ -31,6 +30,6 @@ public class Debug {
 		
 		//Scenes
 		data.add(new DataLocation("Scenes",10,200));
-		data.add(new DataLocation("Trees: " + XMLReader.objects.stream().filter(x -> x.name.equals("TreeObject") || x.name.equals("PalmTreeObject")).count(),15,220));
+		data.add(new DataLocation("Trees: " + level.getXMLObjects().stream().filter(x -> x.name.equals("TreeObject") || x.name.equals("PalmTreeObject")).count(),15,220));
 	}
 }

@@ -2,6 +2,7 @@ package com.alisio.genesis.entity.projectile;
 
 import java.util.Random;
 import com.alisio.genesis.entity.Entity;
+import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
 import com.alisio.genesis.level.tile.Tile;
@@ -20,6 +21,7 @@ public abstract class Projectile extends Entity {
 	public static SpriteSheet projectiles = new SpriteSheet("/" + Tile.SIZE + "/textures/projectiles.png");
 
 	public Projectile(int x, int y, double direction) {
+		super(x,y);
 		this.xStart = x;
 		this.yStart = y;
 		this.x = x;
@@ -30,4 +32,8 @@ public abstract class Projectile extends Entity {
 	protected void move() {
 		
 	}
+	
+	//interface
+	public abstract void update();
+	public abstract void render(Screen screen);
 }

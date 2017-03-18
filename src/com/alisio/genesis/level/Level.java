@@ -6,12 +6,9 @@ import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.entity.particle.Particle;
 import com.alisio.genesis.entity.projectile.Projectile;
 import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.level.object.LightObject;
-import com.alisio.genesis.level.object.TileObject;
-import com.alisio.genesis.level.tile.Tile;
-import com.alisio.genesis.level.tile.VoidTile;
+import com.alisio.genesis.level.object.*;
+import com.alisio.genesis.level.tile.*;
 import com.alisio.genesis.reader.XMLObject;
-import com.alisio.genesis.reader.XMLReader;
 
 public class Level {
 	protected int width, height;
@@ -28,6 +25,7 @@ public class Level {
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Particle> particles = new ArrayList<Particle>();
 	private List<LightObject> lightObjects = new ArrayList<LightObject>();
+	private List<XMLObject> objects = new ArrayList<XMLObject>();
 
 	//cto
 	public Level(int width, int height) {
@@ -133,7 +131,7 @@ public class Level {
 		for (int y = top; y < bottom; y++) {
 			for (int x = left; x < right; x++) {
 				TileObject o = getObject(x, y);
-				if (o != null) o.render(x, y, screen,this);
+				if (o != null) o.render(x,y,screen,this);
 			}
 		}
 
@@ -156,10 +154,13 @@ public class Level {
 			particles.add((Particle)e);
 		} else if(e instanceof Projectile) {
 			projectiles.add((Projectile)e);
-		}
-		else{
+		} else{
 			entities.add(e);
 		}
+	}
+	
+	public void add(XMLObject e) {
+		objects.add(e);
 	}
 
 	public Tile getTile(int x, int y) {
@@ -173,8 +174,8 @@ public class Level {
 	public TileObject getObject(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return null;
 		for (int i = 0; i < TileObject.listObjects.size(); i++) {
-			for (int j = 0; j < XMLReader.objects.size(); j++) {
-				XMLObject o = XMLReader.objects.get(j);
+			for (int j = 0; j < objects.size(); j++) {
+				XMLObject o = objects.get(j);
 				if (x == o.x && y == o.y && TileObject.listObjects.get(i).name.equals(o.name))
 					return TileObject.listObjects.get(i);
 			}
@@ -191,8 +192,8 @@ public class Level {
 			TileObject temp = getObjectCollision(xt, yt);
 			
 			if(temp != null) {
-				xt = (x - i % 2 * size + xOffset - temp.sprite.getStartX()) >> Tile.BASE_SIZE;
-				yt = (y - i / 2 * size + yOffset - temp.sprite.getStartY()) >> Tile.BASE_SIZE;			
+				xt = (x - i % 2 * size + xOffset - temp.getSprite().getStartX()) >> Tile.BASE_SIZE;
+				yt = (y - i / 2 * size + yOffset - temp.getSprite().getStartY()) >> Tile.BASE_SIZE;			
 			}
 			
 			TileObject o = getObjectCollision(xt, yt);
@@ -220,7 +221,7 @@ public class Level {
 			for (int xx = 0; xx < radius; xx++) {
 				TileObject o = getObject(x - xx, y - yy);
 				if (o != null) {
-					int newradius = o.sprite.getWidth() / 16;
+					int newradius = o.getSprite().getWidth() / 16;
 					if (newradius == radius) {
 						return o;
 					}
@@ -251,5 +252,7 @@ public class Level {
 		return lightObjects;
 	}
 	
-	//setters
+	public List<XMLObject> getXMLObjects() {
+		return objects;
+	}
 }

@@ -28,8 +28,7 @@ public class Player extends Mob {
 	private AnimatedSprite left = new AnimatedSprite(playerLeft,32,32,3);
 
 	public Player(int x, int y, KeyBoard input) {
-		this.x = x;
-		this.y = y;
+		super(x,y);
 		this.input = input;
 		this.movingSpeed = 1;
 		this.firerate = SphereProjectile.FIRE_RATE;
@@ -37,9 +36,8 @@ public class Player extends Mob {
 	}
 
 	public Player(KeyBoard input) {
+		super(0,0);
 		this.input = input;
-		this.x = 0;
-		this.y = 0;
 		this.movingSpeed = 1;
 		this.firerate = SphereProjectile.FIRE_RATE;
 		this.animSprite = up;
@@ -60,11 +58,10 @@ public class Player extends Mob {
 			animSprite.setAnimationSpeed(90);
 			animSprite.update();
 		
-			if (direction == 0) animSprite = up;
-			if (direction == 1) animSprite = right;
-			if (direction == 2) animSprite = down;
-			if (direction == 3) animSprite = left;
-			
+			if (direction == Direction.UP) animSprite = up;
+			if (direction == Direction.RIGHT) animSprite = right;
+			if (direction == Direction.DOWN) animSprite = down;
+			if (direction == Direction.LEFT) animSprite = left;			
 		} else {
 			moving = false;
 			animSprite.setSprite(0);
@@ -92,7 +89,7 @@ public class Player extends Mob {
 
 	public void render(Screen screen) {
 	    sprite = animSprite.getSprite();
-		screen.renderPlayer((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
+		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
 	}
 	
 	public int getTileX() {

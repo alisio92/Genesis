@@ -9,7 +9,7 @@ public class GlowOrbObject extends TileObject {
 	
 	public static Sprite sprite = new Sprite(16,0,2,objects);
 	public static String name = "GlowOrbObject";
-	public static TileObject object = new GlowOrbObject(sprite,name,4);
+	public static GlowOrbObject object = new GlowOrbObject(sprite,name,4);
 
 	public GlowOrbObject(Sprite sprite, String name, int baseSize) {
 		super(sprite, name,baseSize);
@@ -29,5 +29,9 @@ public class GlowOrbObject extends TileObject {
 	
 	public boolean emitsLight(){
 		return true;
+	}
+
+	public boolean breakable() {
+		return false;
 	}
 }

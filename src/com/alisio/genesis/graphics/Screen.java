@@ -1,9 +1,9 @@
 package com.alisio.genesis.graphics;
 
 import java.util.List;
+import com.alisio.genesis.entity.mob.Mob;
 import com.alisio.genesis.level.Level;
-import com.alisio.genesis.level.object.LightObject;
-import com.alisio.genesis.level.object.TileObject;
+import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.Tile;
 
 public class Screen {
@@ -35,13 +35,13 @@ public class Screen {
 		if(tb < -240) tb = -240;
 		if(tb > 0) tb = 0;
 		
-		for (int y = 0; y < object.sprite.getHeight(); y++) {
+		for (int y = 0; y < object.getSprite().getHeight(); y++) {
 			int yy = y + yLoc;
-			for (int x = 0; x < object.sprite.getWidth(); x++) {
+			for (int x = 0; x < object.getSprite().getWidth(); x++) {
 				int xx = x + xLoc;
-				if (xx < -object.sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
+				if (xx < -object.getSprite().getWidth() || xx >= width || yy < 0 || yy >= height) break;
 				if (xx < 0) xx = 0;
-				int col = object.sprite.pixels[x + y * object.sprite.getWidth()];
+				int col = object.getSprite().pixels[x + y * object.getSprite().getWidth()];
 				if (col != 0xffff00ff) {
 					if (!object.emitsLight()) {
 						List<LightObject> objects = level.getLightObjects();
@@ -141,7 +141,7 @@ public class Screen {
 		}
 	}
 
-	public void renderPlayer(int xLoc, int yLoc, Sprite sprite) {
+	public void renderMob(int xLoc, int yLoc, Sprite sprite) {
 		xLoc -= XOffset;
 		yLoc -= yOffset;
 		for (int y = 0; y < sprite.getHeight(); y++) {
@@ -151,6 +151,24 @@ public class Screen {
 				if (xx < -sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
 				if (xx < 0) xx = 0;
 				int col = sprite.pixels[x + y * sprite.getWidth()];
+				if (col != 0xff78C380) {
+					col = changeBrightness(col, Level.brightness);
+					this.pixels[xx + yy * width] = col;
+				}
+			}
+		}
+	}
+	
+	public void renderMob(int xLoc, int yLoc, Mob mob) {
+		xLoc -= XOffset;
+		yLoc -= yOffset;
+		for (int y = 0; y < mob.getSprite().getHeight(); y++) {
+			int yy = y + yLoc;
+			for (int x = 0; x < mob.getSprite().getWidth(); x++) {
+				int xx = x + xLoc;
+				if (xx < -mob.getSprite().getWidth() || xx >= width || yy < 0 || yy >= height) break;
+				if (xx < 0) xx = 0;
+				int col = mob.getSprite().pixels[x + y * mob.getSprite().getWidth()];
 				if (col != 0xff78C380) {
 					col = changeBrightness(col, Level.brightness);
 					this.pixels[xx + yy * width] = col;

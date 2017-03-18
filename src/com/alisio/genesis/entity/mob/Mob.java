@@ -1,20 +1,25 @@
 package com.alisio.genesis.entity.mob;
 
 import com.alisio.genesis.entity.Entity;
-import com.alisio.genesis.entity.projectile.Projectile;
-import com.alisio.genesis.entity.projectile.SphereProjectile;
-import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.graphics.Sprite;
-import com.alisio.genesis.level.object.TileObject;
+import com.alisio.genesis.entity.projectile.*;
+import com.alisio.genesis.graphics.*;
+import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.Tile;
 
 public abstract class Mob extends Entity {
 
-	protected Sprite sprite;
-	protected int direction = 0;
+	protected Direction direction = Direction.DOWN;
 	protected int firerate = 0;
 	protected boolean moving = false;
 	protected int movingSpeed = 0;
+	
+	protected enum Direction {
+		UP,DOWN,LEFT,RIGHT
+	}
+	
+	public Mob(int x, int y){
+		super(x,y);
+	}
 
 	public void move(int xTo, int yTo) {
 		if (xTo != 0 && yTo != 0) {
@@ -23,27 +28,20 @@ public abstract class Mob extends Entity {
 			return;
 		}
 
-		if (xTo > 0) direction = 1;
-		if (xTo < 0) direction = 3;
-		if (yTo > 0) direction = 2;
-		if (yTo < 0) direction = 0;
+		if (xTo > 0) direction = Direction.RIGHT;
+		if (xTo < 0) direction = Direction.LEFT;
+		if (yTo > 0) direction = Direction.DOWN;
+		if (yTo < 0) direction = Direction.UP;
 
 		if (!collision(xTo, yTo) && !collisionOverlay(xTo, yTo)) {
 			this.x += xTo;
 			this.y += yTo;
 		}
 	}
-
-	public void update() {
-	}
-
+	
 	protected void shoot(int x, int y, double direction) {
 		Projectile p = new SphereProjectile(x, y, direction);
 		level.add(p);
-	}
-
-	public void render(Screen screen) {
-
 	}
 
 	private boolean collision(int xTo, int yTo) {
@@ -70,4 +68,8 @@ public abstract class Mob extends Entity {
 
 		return collision;
 	}
+	
+	//interface
+	public abstract void update();
+	public abstract void render(Screen screen);
 }

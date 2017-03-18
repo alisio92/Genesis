@@ -24,4 +24,8 @@ public class StoneTile extends Tile {
 	public boolean blocksShooting(){
 		return true;
 	}
+
+	public boolean breakable() {
+		return false;
+	}
 }

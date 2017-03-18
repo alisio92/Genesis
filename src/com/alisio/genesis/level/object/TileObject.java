@@ -2,16 +2,15 @@ package com.alisio.genesis.level.object;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
 import com.alisio.genesis.level.Level;
 import com.alisio.genesis.level.tile.Tile;
 
-public class TileObject {	
-	public int x,y;
+public abstract class TileObject extends Entity {	
 	public int baseSize, size;
-	public Sprite sprite;
 	public String name;
 	
 	public static List<TileObject> listObjects = new ArrayList<TileObject>();
@@ -19,29 +18,16 @@ public class TileObject {
 	public static SpriteSheet objects = new SpriteSheet("/" + Tile.SIZE + "/textures/objects.png");
 	
 	public TileObject(Sprite sprite, String name, int baseSize){
-		this.sprite = sprite;
+		super(0,0,sprite);
 		this.name = name;
 		this.baseSize = baseSize;
 		this.size = (int)Math.pow(2, baseSize);
 	}
 	
-	public void render(int x, int y, Screen screen, Level level){
-		
-	}
-	
-	public boolean breakable(){
-		return false;
-	}
-	
-	public boolean walkable(){
-		return false;
-	}
-	
-	public boolean blocksShooting(){
-		return true;
-	}
-	
-	public boolean emitsLight(){
-		return false;
-	}
+	//Interface
+	public abstract void render(int x, int y, Screen screen, Level level);
+	public abstract boolean breakable();
+	public abstract boolean walkable();
+	public abstract boolean blocksShooting();
+	public abstract boolean emitsLight();
 }

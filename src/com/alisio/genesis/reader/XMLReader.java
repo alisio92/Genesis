@@ -1,22 +1,22 @@
 package com.alisio.genesis.reader;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import com.alisio.genesis.level.Level;
 
 public class XMLReader {
 	
 	public String path;
-	public static List<XMLObject> objects = new ArrayList<XMLObject>();
+	private Level level;
 	public static String error  = "";
 	
-	public XMLReader(String path) {
+	public XMLReader(String path, Level level) {
 		this.path = path;
+		this.level = level;
 		readFile();
 	}
 	
@@ -28,14 +28,14 @@ public class XMLReader {
 		try {
 			documentBuilder = documentBuilderFactory.newDocumentBuilder();
 			Document document = documentBuilder.parse(XMLReader.class.getResourceAsStream(path));	
-			getTrees(document);		
+			getObjects(document);		
 		} catch (Exception e) {
 			error = e.getMessage();
 			System.out.println("Could not get info from " + path);
 		}
 	}
 	
-	private void getTrees(Document document){
+	private void getObjects(Document document){
 		NodeList nodelist = document.getElementsByTagName("object");
 		if(nodelist != null){
 			for(int i = 0; i < nodelist.getLength();i++) {
@@ -45,8 +45,8 @@ public class XMLReader {
 					Node name = e.getElementsByTagName("name").item(0);
 					Node locationX = e.getElementsByTagName("locationx").item(0);
 					Node locationY = e.getElementsByTagName("locationy").item(0);
-					XMLObject tree = new XMLObject(name.getTextContent(),Integer.parseInt(locationX.getTextContent()),Integer.parseInt(locationY.getTextContent()));
-					objects.add(tree);
+					XMLObject object = new XMLObject(name.getTextContent(),Integer.parseInt(locationX.getTextContent()),Integer.parseInt(locationY.getTextContent()));
+					level.add(object);
 				}
 			}
 		}		

@@ -6,7 +6,7 @@ import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
 
-public class Tile {
+public abstract class Tile {
 	public int x,y;
 	public static final int BASE_SIZE = 4;
 	public static final int SIZE = (int)Math.pow(2, BASE_SIZE);
@@ -22,19 +22,9 @@ public class Tile {
 		this.color = color;
 	}
 	
-	public void render(int x, int y, Screen screen){
-		
-	}
-	
-	public boolean breakable(){
-		return false;
-	}
-	
-	public boolean walkable(){
-		return true;
-	}
-	
-	public boolean blocksShooting(){
-		return false;
-	}
+	//Interface	
+	public abstract void render(int x, int y, Screen screen);
+	public abstract boolean breakable();
+	public abstract boolean walkable();
+	public abstract boolean blocksShooting();
 }

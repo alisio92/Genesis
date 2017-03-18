@@ -24,4 +24,8 @@ public class DirtTile extends Tile {
 	public boolean blocksShooting(){
 		return false;
 	}
+
+	public boolean breakable() {
+		return false;
+	}
 }

@@ -26,4 +26,12 @@ public class ShopObject extends TileObject {
 	public boolean blocksShooting(){
 		return true;
 	}
+
+	public boolean breakable() {
+		return false;
+	}
+
+	public boolean emitsLight() {
+		return false;
+	}
 }

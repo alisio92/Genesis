@@ -10,7 +10,6 @@ public class Particle extends Entity {
 	
 	public static Sprite particle = new Sprite(3,0xAAAAA);
 	
-	private Sprite sprite;
 	private int life;
 	private int time = 0;
 	
@@ -18,11 +17,9 @@ public class Particle extends Entity {
 	protected double xa,ya,za;
 	
 	public Particle(int x, int y, int life) {
-		this.x = x;
-		this.y = y;
+		super(x,y,particle);
 		this.xx = x;
 		this.yy = y;
-		this.sprite = particle;
 		this.life = life + (random.nextInt(20) - 10);
 		this.xa = random.nextGaussian();
 		this.ya = random.nextGaussian();
@@ -85,8 +82,8 @@ public class Particle extends Entity {
 			TileObject temp = level.getObjectCollision(xx,yy);
 			
 			if(temp != null) {
-				x -= temp.sprite.getStartX();
-				y -= temp.sprite.getStartY();
+				x -= temp.getSprite().getStartX();
+				y -= temp.getSprite().getStartY();
 			}
 			
 			xt = (x - i % 2 * Tile.SIZE) / Tile.SIZE;

@@ -9,7 +9,7 @@ public class VoidObject extends TileObject {
 	
 	public static Sprite sprite = new Sprite(16,0xffff00ff);
 	public static String name = "VoidObject";
-	public static TileObject object = new VoidObject(sprite,name,4);
+	public static VoidObject object = new VoidObject(sprite,name,4);
 
 	public VoidObject(Sprite sprite, String name, int baseSize) {
 		super(sprite,name,baseSize);
@@ -24,6 +24,14 @@ public class VoidObject extends TileObject {
 	}
 	
 	public boolean blocksShooting(){
+		return false;
+	}
+
+	public boolean breakable() {
+		return false;
+	}
+
+	public boolean emitsLight() {
 		return false;
 	}
 }
