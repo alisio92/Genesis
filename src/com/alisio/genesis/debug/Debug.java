@@ -18,7 +18,7 @@ public class Debug {
 		
 		//player
 		data.add(new DataLocation("Player",10,20));
-		data.add(new DataLocation("X: " + player.x + ", Y: " + player.y,15,40));		
+		data.add(new DataLocation("X: " + player.getX() + ", Y: " + player.getY(),15,40));		
 		data.add(new DataLocation("TileX: " + player.getTileX() + ", TileY: " + player.getTileY(),15,60));
 		
 		//level

@@ -5,7 +5,6 @@ import com.alisio.genesis.entity.projectile.*;
 import com.alisio.genesis.graphics.AnimatedSprite;
 import com.alisio.genesis.graphics.*;
 import com.alisio.genesis.input.*;
-import com.alisio.genesis.level.tile.Tile;
 
 public class Player extends Mob {
 
@@ -90,13 +89,5 @@ public class Player extends Mob {
 	public void render(Screen screen) {
 	    sprite = animSprite.getSprite();
 		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
-	}
-	
-	public int getTileX() {
-		return ((int)(x) >> Tile.BASE_SIZE);
-	}
-	
-	public int getTileY() {
-		return ((int)(y) >> Tile.BASE_SIZE);
 	}
 }

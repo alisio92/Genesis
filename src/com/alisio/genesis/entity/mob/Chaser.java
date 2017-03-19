@@ -1,5 +1,6 @@
 package com.alisio.genesis.entity.mob;
 
+import java.util.List;
 import com.alisio.genesis.graphics.*;
 
 public class Chaser extends Mob {
@@ -28,19 +29,19 @@ public class Chaser extends Mob {
 		this.movingSpeed = 1;
 		this.animSprite = up;
 	}
-
-	public void update() {	
-		time++;
-		if(time >= 7500) time = 0;
-		if(time % (random.nextInt(50) + 30) == 0) {
-			xx = random.nextInt(3) - 1;
-			yy = random.nextInt(3) - 1;
-			if(random.nextInt(3) == 0) {
-				xx = 0;
-				yy = 0;
-			}
+	
+	private void move(){
+		xx = 0;
+		yy = 0;
+		List<Player> players = level.getPlayers(this, 50);
+		if(players.size() > 0) {
+			Player player = level.getPlayer(0);
+			if(x < player.getX()) xx++;
+			if(x > player.getX()) xx--;
+			if(y < player.getY()) yy++;
+			if(y > player.getY()) yy--;
 		}
-
+		
 		if (xx != 0 || yy != 0) {
 			move(xx, yy);
 			moving = true;
@@ -55,6 +56,20 @@ public class Chaser extends Mob {
 			moving = false;
 			animSprite.setSprite(0);
 		}
+	}
+
+	public void update() {	
+		move();
+		time++;
+		if(time >= 7500) time = 0;
+		/*if(time % (random.nextInt(50) + 30) == 0) {
+			xx = random.nextInt(3) - 1;
+			yy = random.nextInt(3) - 1;
+			if(random.nextInt(3) == 0) {
+				xx = 0;
+				yy = 0;
+			}
+		}*/
 	}
 
 	public void render(Screen screen) {

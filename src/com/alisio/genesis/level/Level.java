@@ -3,8 +3,9 @@ package com.alisio.genesis.level;
 import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.Entity;
-import com.alisio.genesis.entity.particle.Particle;
-import com.alisio.genesis.entity.projectile.Projectile;
+import com.alisio.genesis.entity.mob.*;
+import com.alisio.genesis.entity.particle.*;
+import com.alisio.genesis.entity.projectile.*;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.*;
@@ -26,6 +27,7 @@ public class Level {
 	private List<Particle> particles = new ArrayList<Particle>();
 	private List<LightObject> lightObjects = new ArrayList<LightObject>();
 	private List<XMLObject> objects = new ArrayList<XMLObject>();
+	private List<Player> players = new ArrayList<Player>();
 
 	//cto
 	public Level(int width, int height) {
@@ -64,6 +66,9 @@ public class Level {
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).update();
 		}
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).update();
+		}
 		
 		gameTime.update();
 		remove();
@@ -80,6 +85,9 @@ public class Level {
 		}
 		for (int i = 0; i < particles.size(); i++) {
 			if(particles.get(i).isRemoved()) particles.remove(i);
+		}
+		for (int i = 0; i < players.size(); i++) {
+			if(players.get(i).isRemoved()) players.remove(i);
 		}
 	}
 
@@ -144,6 +152,9 @@ public class Level {
 		for (int i = 0; i < particles.size(); i++) {
 			particles.get(i).render(screen);
 		}
+		for (int i = 0; i < players.size(); i++) {
+			players.get(i).render(screen);
+		}
 		gameTime.render();	
 		lightObjects.clear();
 	}
@@ -154,6 +165,8 @@ public class Level {
 			particles.add((Particle)e);
 		} else if(e instanceof Projectile) {
 			projectiles.add((Projectile)e);
+		} else if(e instanceof Player) {
+			players.add((Player)e);
 		} else{
 			entities.add(e);
 		}
@@ -248,11 +261,53 @@ public class Level {
 		return entities;
 	}
 	
+	public List<Entity> getEntities(Entity e, int radius) {
+		List<Entity> result = new ArrayList<Entity>();
+		double ex = e.getX();
+		double ey = e.getTileY();
+		for(int i = 0; i < entities.size();i++) {
+			Entity entity = entities.get(i);
+			double x = entity.getX();
+			double y = entity.getTileY();
+			
+			double dx = Math.abs(x - ex);
+			double dy = Math.abs(y - ey);
+			double distace = Math.sqrt((dx * dx) + (dy * dy));
+			if(distace <= radius) result.add(entity);
+		}
+		return result;
+	}
+	
+	public List<Player> getPlayers(Entity e, int radius) {
+		List<Player> result = new ArrayList<Player>();
+		double ex = e.getX();
+		double ey = e.getTileY();
+		for(int i = 0; i < players.size();i++) {
+			Player player = players.get(i);
+			double x = player.getX();
+			double y = player.getTileY();
+			
+			double dx = Math.abs(x - ex);
+			double dy = Math.abs(y - ey);
+			double distace = Math.sqrt((dx * dx) + (dy * dy));
+			if(distace <= radius) result.add(player);
+		}
+		return result;
+	}
+	
 	public List<LightObject> getLightObjects() {
 		return lightObjects;
 	}
 	
 	public List<XMLObject> getXMLObjects() {
 		return objects;
+	}
+	
+	public List<Player> getPlayers() {
+		return players;
+	}
+	
+	public Player getPlayer(int index) {
+		return players.get(index);
 	}
 }

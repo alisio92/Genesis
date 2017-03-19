@@ -27,7 +27,7 @@ public class BasicLevel extends Level {
 			e.printStackTrace();
 			System.out.println("Could not load level file from " + path + "!");
 		}	
-		TileLocation location = new TileLocation(22,12);
+		TileLocation location = new TileLocation(25,12);
 		add(new Chaser(location.getX(),location.getY()));
 		
 		for(int i = 0; i < getXMLObjects().size();i++){

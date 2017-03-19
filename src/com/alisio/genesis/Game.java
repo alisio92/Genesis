@@ -100,10 +100,9 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		screen.clear();
-		double xScroll = player.x - screen.width / 2;
-		double yScroll = player.y - screen.height / 2;
+		double xScroll = player.getX() - screen.width / 2;
+		double yScroll = player.getY() - screen.height / 2;
 		level.render((int)xScroll, (int)yScroll, screen);		
-		player.render(screen);
 		
 		//Sprite sprite = new Sprite(80,80,0x10ff00ff);
 		//screen.renderSprite(0, 0, sprite, true);
@@ -127,7 +126,7 @@ public class Game extends Canvas implements Runnable{
 		//g.drawString("X: " + player.x + ", Y: " + player.y,10,20);
 		
 		if(console.visible){
-			console.message = "X: " + player.x + ", Y: " + player.y;
+			console.message = "X: " + player.getX() + ", Y: " + player.getY();
 			g.setFont(console.font);
 			g.drawString(console.message, console.x, console.y);
 		}
@@ -147,7 +146,6 @@ public class Game extends Canvas implements Runnable{
 
 	private void update() {
 		key.update();
-		player.update();
 		level.update();
 		
 		if(key.space) NewLevel();		
@@ -181,7 +179,7 @@ public class Game extends Canvas implements Runnable{
 		
 		TileLocation location = new TileLocation(20,12);
 		player = new Player(location.getX(),location.getY(),key);
-		player.init(level);
+		level.add(player);
 		
 		console = new Console(10,400);
 		debug = new Debug();

@@ -4,9 +4,10 @@ package com.alisio.genesis.entity;
 import java.util.Random;
 import com.alisio.genesis.graphics.*;
 import com.alisio.genesis.level.Level;
+import com.alisio.genesis.level.tile.Tile;
 
 public class Entity {
-    public double x, y;
+	protected double x, y;
     protected Sprite sprite;
     private boolean removed = false;
     protected Level level;
@@ -46,4 +47,20 @@ public class Entity {
     public Sprite getSprite(){
     	return sprite;
     }
+    
+    public double getX() {
+    	return x;
+    }
+    
+    public double getY() {
+    	return y;
+    }
+    
+	public int getTileX() {
+		return ((int)(x) >> Tile.BASE_SIZE);
+	}
+	
+	public int getTileY() {
+		return ((int)(y) >> Tile.BASE_SIZE);
+	}
 }
