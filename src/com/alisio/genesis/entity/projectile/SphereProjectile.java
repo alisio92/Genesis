@@ -11,7 +11,7 @@ public class SphereProjectile extends Projectile {
 	public static Sprite projectile = new Sprite(Tile.SIZE, 0, 0, projectiles);
 	public static final int FIRE_RATE = (int) Game.updates / 1;
 
-	public SphereProjectile(int x, int y, double direction) {
+	public SphereProjectile(double x, double y, double direction) {
 		super(x, y, direction);
 		this.range = random.nextInt(100) + 150;
 		this.speed = 4;

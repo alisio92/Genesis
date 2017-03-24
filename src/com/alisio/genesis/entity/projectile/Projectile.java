@@ -9,7 +9,7 @@ import com.alisio.genesis.level.tile.Tile;
 
 public abstract class Projectile extends Entity {
 	
-	protected final int xStart, yStart;
+	protected final double xStart, yStart;
 	protected double angle;
 	protected Sprite sprite;
 	protected double nx, ny;
@@ -20,7 +20,7 @@ public abstract class Projectile extends Entity {
 	
 	public static SpriteSheet projectiles = new SpriteSheet("/" + Tile.SIZE + "/textures/projectiles.png");
 
-	public Projectile(int x, int y, double direction) {
+	public Projectile(double x, double y, double direction) {
 		super(x,y);
 		this.xStart = x;
 		this.yStart = y;

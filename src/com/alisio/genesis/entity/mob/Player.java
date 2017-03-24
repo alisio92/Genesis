@@ -25,11 +25,12 @@ public class Player extends Mob {
 	private AnimatedSprite up = new AnimatedSprite(playerUp,32,32,3);
 	private AnimatedSprite right = new AnimatedSprite(playerRight,32,32,3);
 	private AnimatedSprite left = new AnimatedSprite(playerLeft,32,32,3);
+	private double speed = 1.2;
 
-	public Player(int x, int y, KeyBoard input) {
+	public Player(double x, double y, KeyBoard input) {
 		super(x,y);
 		this.input = input;
-		this.movingSpeed = 1;
+		this.movingSpeed = speed;
 		this.firerate = SphereProjectile.FIRE_RATE;
 		this.animSprite = up;
 	}
@@ -37,14 +38,14 @@ public class Player extends Mob {
 	public Player(KeyBoard input) {
 		super(0,0);
 		this.input = input;
-		this.movingSpeed = 1;
+		this.movingSpeed = speed;
 		this.firerate = SphereProjectile.FIRE_RATE;
 		this.animSprite = up;
 	}
 
 	public void update() {
 		if(firerate > 0) firerate--;		
-		int xx = 0, yy = 0;
+		double xx = 0, yy = 0;
 
 		if (input.up) yy -= movingSpeed;
 		if (input.down) yy += movingSpeed;
@@ -81,7 +82,7 @@ public class Player extends Mob {
 			double dx = Mouse.getX() - Game.getWindowWidth() / 2;
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
-			shoot((int)x,(int)y,dir);
+			shoot(x,y,dir);
 			firerate = SphereProjectile.FIRE_RATE;
 		}
 	}

@@ -13,13 +13,13 @@ public class Entity {
     protected Level level;
     protected final Random random = new Random();
     
-    public Entity(int x, int y, Sprite sprite) {
+    public Entity(double x, double y, Sprite sprite) {
     	this.x = x;
     	this.y = y;
     	this.sprite = sprite;
     }
     
-    public Entity(int x, int y) {
+    public Entity(double x, double y) {
     	this.x = x;
     	this.y = y;
     }
