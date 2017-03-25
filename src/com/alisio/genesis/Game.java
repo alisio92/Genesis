@@ -10,15 +10,12 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 import com.alisio.genesis.console.Console;
-import com.alisio.genesis.debug.Debug;
 import com.alisio.genesis.entity.mob.Player;
 import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.input.KeyBoard;
-import com.alisio.genesis.input.Mouse;
-import com.alisio.genesis.level.BasicLevel;
-import com.alisio.genesis.level.Level;
-import com.alisio.genesis.level.TileLocation;
+import com.alisio.genesis.input.*;
+import com.alisio.genesis.level.*;
 import com.alisio.genesis.resource.Resources;
+import com.alisio.genesis.util.debug.Debug;
 
 public class Game extends Canvas implements Runnable{
 	private static final long serialVersionUID = 1L;

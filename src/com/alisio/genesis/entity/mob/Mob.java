@@ -80,8 +80,8 @@ public abstract class Mob extends Entity {
 		boolean collision = false;
 
 		for (int i = 0; i < Tile.BASE_SIZE; i++) {
-			double xt = ((x + xTo) - i % 2 * Tile.SIZE) / Tile.SIZE;
-			double yt = ((y + yTo) - i / 2 * Tile.SIZE) / Tile.SIZE;
+			double xt = ((x + xTo) - i % 2 * 15) / Tile.SIZE;
+			double yt = ((y + yTo) - i / 2 * 15) / Tile.SIZE;
 			int xx = (int) Math.ceil(xt);
 			int yy = (int) Math.ceil(yt);
 			if (i % 2 == 0) xx = (int) Math.floor(xt);

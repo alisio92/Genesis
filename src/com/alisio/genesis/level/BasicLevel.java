@@ -4,8 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import com.alisio.genesis.entity.mob.*;
-import com.alisio.genesis.reader.XMLObject;
-import com.alisio.genesis.reader.XMLReader;
+import com.alisio.genesis.util.reader.*;
 
 public class BasicLevel extends Level {
 
@@ -28,7 +27,8 @@ public class BasicLevel extends Level {
 			System.out.println("Could not load level file from " + path + "!");
 		}	
 		TileLocation location = new TileLocation(25,11);
-		add(new Chaser(location.getX(),location.getY()));
+		//add(new Chaser(location.getX(),location.getY()));
+		add(new Star(location.getX(),location.getY()));
 		
 		for(int i = 0; i < getXMLObjects().size();i++){
 			XMLObject o = getXMLObjects().get(i);

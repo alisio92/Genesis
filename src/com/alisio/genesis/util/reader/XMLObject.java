@@ -1,4 +1,4 @@
-package com.alisio.genesis.reader;
+package com.alisio.genesis.util.reader;
 
 public class XMLObject {
 	public int x, y;

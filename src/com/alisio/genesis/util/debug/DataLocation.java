@@ -1,4 +1,4 @@
-package com.alisio.genesis.debug;
+package com.alisio.genesis.util.debug;
 
 public class DataLocation {
 	public String text;

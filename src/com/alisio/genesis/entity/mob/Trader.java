@@ -16,9 +16,9 @@ public class Trader extends Mob {
 	public static SpriteSheet chaserLeft = new SpriteSheet(chaser,2,0,1,3,32);
 	
 	private AnimatedSprite down = new AnimatedSprite(chaserDown,32,32,3);
-	private AnimatedSprite up = new AnimatedSprite(chaserUp,32,32,3);
+	/*private AnimatedSprite up = new AnimatedSprite(chaserUp,32,32,3);
 	private AnimatedSprite right = new AnimatedSprite(chaserRight,32,32,3);
-	private AnimatedSprite left = new AnimatedSprite(chaserLeft,32,32,3);
+	private AnimatedSprite left = new AnimatedSprite(chaserLeft,32,32,3);*/
 	
 	private AnimatedSprite animSprite = null;
 

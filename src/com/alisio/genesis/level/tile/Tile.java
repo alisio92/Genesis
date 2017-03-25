@@ -7,7 +7,6 @@ import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
 
 public abstract class Tile {
-	public int x,y;
 	public static final int BASE_SIZE = 4;
 	public static final int SIZE = (int)Math.pow(2, BASE_SIZE);
 	public Sprite sprite;
