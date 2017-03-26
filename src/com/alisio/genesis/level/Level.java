@@ -323,6 +323,7 @@ public class Level {
 		double ey = e.getTileY();
 		for (int i = 0; i < entities.size(); i++) {
 			Entity entity = entities.get(i);
+			if(entity.equals(e)) continue;
 			double x = entity.getX();
 			double y = entity.getTileY();
 

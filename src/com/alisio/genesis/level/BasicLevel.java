@@ -27,8 +27,13 @@ public class BasicLevel extends Level {
 			System.out.println("Could not load level file from " + path + "!");
 		}	
 		TileLocation location = new TileLocation(25,11);
+		TileLocation location2 = new TileLocation(28,13);
+		TileLocation location3 = new TileLocation(28,11);
 		//add(new Chaser(location.getX(),location.getY()));
-		add(new Star(location.getX(),location.getY()));
+		//add(new Star(location.getX(),location.getY()));
+		add(new Shooter(location.getX(),location.getY()));
+		add(new Shooter(location2.getX(),location2.getY()));
+		//add(new Shooter(location3.getX(),location3.getY()));
 		
 		for(int i = 0; i < getXMLObjects().size();i++){
 			XMLObject o = getXMLObjects().get(i);

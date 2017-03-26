@@ -1,10 +1,12 @@
 package com.alisio.genesis.entity.mob;
 
+import java.util.List;
 import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.entity.projectile.*;
 import com.alisio.genesis.graphics.*;
 import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.Tile;
+import com.alisio.genesis.util.Vector2i;
 
 public abstract class Mob extends Entity {
 
@@ -12,6 +14,7 @@ public abstract class Mob extends Entity {
 	protected int firerate = 0;
 	protected boolean moving = false;
 	protected double movingSpeed = 0;
+	private Entity rand = null;
 
 	protected enum Direction {
 		UP, DOWN, LEFT, RIGHT
@@ -121,6 +124,50 @@ public abstract class Mob extends Entity {
 
 		return collision;
 	}*/
+	
+	public void shootClosest(){
+		if(firerate <= 0) {
+			List<Entity> entities = level.getEntities(this,50);
+			entities.add(level.getPlayer(0));
+			
+			double min = 0;
+			Entity closest = null;
+			
+			for(int i = 0; i < entities.size();i++) {
+				Entity e = entities.get(i);
+				double distance = Vector2i.getDistance(new Vector2i((int)x, (int)y),new Vector2i((int)e.getX(), (int)e.getY()));
+				if(i == 0 || distance < min) {
+					min = distance;
+					closest = e;
+				}
+			}
+			if(closest != null) {			
+				double dx = closest.getX() - x;
+				double dy = closest.getY() - y;
+				double dir = Math.atan2(dy, dx);
+				shoot(x,y,dir);
+			}			
+			firerate = SphereProjectile.FIRE_RATE;
+		}
+	}
+	
+	public void shootRandom() {
+		if(firerate <= 0) {
+			List<Entity> entities = level.getEntities(this,500);
+			entities.add(level.getPlayer(0));
+			
+			int index = random.nextInt(entities.size());
+			rand = entities.get(index);
+			
+			if(rand != null) {			
+				double dx = rand.getX() - x;
+				double dy = rand.getY() - y;
+				double dir = Math.atan2(dy, dx);
+				shoot(x,y,dir);
+			}			
+			firerate = SphereProjectile.FIRE_RATE;
+		}
+	}
 
 	// interface
 	public abstract void update();

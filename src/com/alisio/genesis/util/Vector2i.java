@@ -41,6 +41,12 @@ public class Vector2i {
 		
 	}
 	
+	public static double getDistance(Vector2i vec0, Vector2i vec1) {
+		double x = vec0.getX() - vec1.getX();
+		double y = vec0.getY() - vec1.getY();
+		return Math.sqrt(x * x + y * y);
+	}
+	
 	//getters
 	public int getX() {
 		return x;
