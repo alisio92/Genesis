@@ -79,7 +79,7 @@ public abstract class Mob extends Entity {
 	 * return collision; }
 	 */
 
-	private boolean collision(double xTo, double yTo) {
+	public boolean collision(double xTo, double yTo) {
 		boolean collision = false;
 
 		for (int i = 0; i < Tile.BASE_SIZE; i++) {
@@ -95,7 +95,7 @@ public abstract class Mob extends Entity {
 		return collision;
 	}
 	
-	private boolean collisionOverlay(double xTo, double yTo) {
+	/*private boolean collisionOverlay(double xTo, double yTo) {
 		boolean collision = false;
 
 		for (int i = 0; i < Tile.BASE_SIZE; i++) {
@@ -110,9 +110,9 @@ public abstract class Mob extends Entity {
 		}
 
 		return collision;
-	}
+	}*/
 
-	/*private boolean collisionOverlay(double xTo, double yTo) {
+	public boolean collisionOverlay(double xTo, double yTo) {
 		boolean collision = false;
 
 		for (int i = 0; i < Tile.BASE_SIZE; i++) {
@@ -123,7 +123,7 @@ public abstract class Mob extends Entity {
 		}
 
 		return collision;
-	}*/
+	}
 	
 	public void shootClosest(){
 		if(firerate <= 0) {

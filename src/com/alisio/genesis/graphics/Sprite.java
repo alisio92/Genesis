@@ -128,14 +128,37 @@ public class Sprite {
 	private void load() {
 		for(int y = 0; y < height;y++){
 			for(int x = 0; x < width;x++){
-				this.pixels[(x * scale) + (y * scale) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
+				this.pixels[(x * scale) + (y * scale) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.getWidth()];
 								
 				for (int i = 1; i < scale;i++){
-					this.pixels[((x * scale) + i) + ((y * scale)) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
-					this.pixels[((x * scale) + i) + ((y * scale) + i) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
-					this.pixels[((x * scale)) + ((y * scale) + i) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.Width];
+					this.pixels[((x * scale) + i) + ((y * scale)) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.getWidth()];
+					this.pixels[((x * scale) + i) + ((y * scale) + i) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.getWidth()];
+					this.pixels[((x * scale)) + ((y * scale) + i) * width * scale] = sheet.pixels[(x + this.x + xOffset) + (y  + this.y + yOffset) * sheet.getWidth()];
 				}
 			}
 		}
 	}
+	
+	public static Sprite[] split(SpriteSheet sheet) {
+	    int amount = sheet.getWidth() * sheet.getHeight() / (sheet.SPRITE_WIDTH * sheet.SPRITE_HEIGHT);
+	    Sprite[] sprites = new Sprite[amount];
+	    int current = 0;
+	    
+	    int[] pixels = new int[sheet.SPRITE_HEIGHT * sheet.SPRITE_WIDTH];
+	    
+	    for (int yp = 0; yp < sheet.getHeight() / sheet.SPRITE_HEIGHT; yp++) {
+	      for (int xp = 0; xp < sheet.getWidth() / sheet.SPRITE_WIDTH; xp++)
+	      {
+	        for (int y = 0; y < sheet.SPRITE_HEIGHT; y++) {
+	          for (int x = 0; x < sheet.SPRITE_WIDTH; x++) {
+	            int x0 = x + xp * sheet.SPRITE_WIDTH;
+	            int y0 = y + yp * sheet.SPRITE_HEIGHT;
+	            pixels[(x + y * sheet.SPRITE_WIDTH)] = sheet.pixels[(x0 + y0 * sheet.getWidth())];
+	          }
+	        }
+	        sprites[(current++)] = new Sprite(pixels, sheet.SPRITE_WIDTH, sheet.SPRITE_HEIGHT);
+	      }
+	    }
+	    return sprites;
+	  }
 }

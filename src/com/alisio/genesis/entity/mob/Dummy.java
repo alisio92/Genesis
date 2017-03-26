@@ -1,6 +1,7 @@
 package com.alisio.genesis.entity.mob;
 
 import com.alisio.genesis.graphics.*;
+import com.alisio.genesis.util.debug.Debug;
 
 public class Dummy extends Mob {
 	
@@ -59,6 +60,7 @@ public class Dummy extends Mob {
 
 	public void render(Screen screen) {
 		sprite = animSprite.getSprite();
+		if(Debug.visible) Debug.drawRect(screen,(int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite.getWidth(),sprite.getHeight(), false);
 		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
 	}
 }

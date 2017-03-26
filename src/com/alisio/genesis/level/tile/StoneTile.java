@@ -2,6 +2,7 @@ package com.alisio.genesis.level.tile;
 
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
+import com.alisio.genesis.util.debug.Debug;
 
 public class StoneTile extends Tile {
 
@@ -15,6 +16,7 @@ public class StoneTile extends Tile {
 	
 	public void render(int x, int y, Screen screen){
 		screen.renderTile(x << BASE_SIZE, y << BASE_SIZE, this);
+		if(Debug.visible) Debug.drawRect(screen, x << BASE_SIZE, y << BASE_SIZE, sprite.getWidth()-1,sprite.getHeight()-1, false);
 	}
 	
 	public boolean walkable(){

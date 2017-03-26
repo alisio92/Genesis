@@ -28,7 +28,7 @@ public class BasicLevel extends Level {
 		}	
 		TileLocation location = new TileLocation(25,11);
 		TileLocation location2 = new TileLocation(28,13);
-		TileLocation location3 = new TileLocation(28,11);
+		//TileLocation location3 = new TileLocation(28,11);
 		//add(new Chaser(location.getX(),location.getY()));
 		//add(new Star(location.getX(),location.getY()));
 		add(new Shooter(location.getX(),location.getY()));

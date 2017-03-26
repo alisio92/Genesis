@@ -5,6 +5,7 @@ import com.alisio.genesis.entity.spawner.ParticleSpawner;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.level.tile.Tile;
+import com.alisio.genesis.util.debug.Debug;
 
 public class SphereProjectile extends Projectile {
 
@@ -35,7 +36,8 @@ public class SphereProjectile extends Projectile {
 	protected void move() {
 		this.x += nx;
 		this.y += ny;
-		if (distance() > range) remove();
+		if (distance() > range) 
+			remove();
 	}
 
 	private double distance() {
@@ -45,6 +47,7 @@ public class SphereProjectile extends Projectile {
 	}
 
 	public void render(Screen screen) {
+		if(Debug.visible) Debug.drawRect(screen,(int) x - 8, (int) y - 10, sprite.getWidth(),sprite.getHeight(), false);
 		screen.renderSprite((int) x - 8, (int) y - 10, sprite);
 	}
 }

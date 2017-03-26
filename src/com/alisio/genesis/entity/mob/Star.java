@@ -5,6 +5,7 @@ import com.alisio.genesis.graphics.*;
 import com.alisio.genesis.level.Node;
 import com.alisio.genesis.level.tile.Tile;
 import com.alisio.genesis.util.Vector2i;
+import com.alisio.genesis.util.debug.Debug;
 
 public class Star extends Mob{
 
@@ -78,6 +79,7 @@ public class Star extends Mob{
 
 	public void render(Screen screen) {
 		sprite = animSprite.getSprite();
+		if(Debug.visible) Debug.drawRect(screen,(int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite.getWidth(),sprite.getHeight(), false);
 		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), this);
 	}
 }

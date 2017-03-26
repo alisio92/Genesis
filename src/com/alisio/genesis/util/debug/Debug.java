@@ -4,16 +4,17 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import com.alisio.genesis.entity.mob.Player;
+import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.level.GameTime;
 import com.alisio.genesis.level.Level;
 
 public class Debug {
 	
 	public static List<DataLocation> data;
-	public Boolean visible = false;
-	public Color color = Color.WHITE;
+	public static Boolean visible = false;
+	public static Color color = Color.WHITE;
 	
-	public void update(Player player, Level level) {
+	public static void update(Player player, Level level) {
 		data = new ArrayList<DataLocation>();
 		
 		//player
@@ -31,5 +32,13 @@ public class Debug {
 		//Scenes
 		data.add(new DataLocation("Scenes",10,200));
 		data.add(new DataLocation("Trees: " + level.getXMLObjects().stream().filter(x -> x.name.equals("TreeObject") || x.name.equals("PalmTreeObject")).count(),15,220));
+	}
+	
+	public static void drawRect(Screen screen, int x, int y, int width, int height, int color, boolean fixed) {
+		screen.drawRect(x,y,width,height,color,fixed);
+	}
+	
+	public static void drawRect(Screen screen, int x, int y, int width, int height, boolean fixed) {
+		screen.drawRect(x,y,width,height,0xffff0000,fixed);
 	}
 }

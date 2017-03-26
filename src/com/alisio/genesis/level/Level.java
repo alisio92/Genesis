@@ -227,7 +227,7 @@ public class Level {
 			int yt = (y - i / 2 * size + yOffset) >> Tile.BASE_SIZE;
 			if (getTile(xt, yt).blocksShooting()) collision = true;
 		}
-
+		
 		return collision;
 	}
 
@@ -257,7 +257,7 @@ public class Level {
 	public List<Node> findPath(Vector2i start, Vector2i goal) {
 		List<Node> openList = new ArrayList<Node>();
 		List<Node> closedList = new ArrayList<Node>();
-		Node current = new Node(start, null, 0, getDistance(start, goal));
+		Node current = new Node(start, null, 0, Vector2i.getDistance(start, goal));
 		openList.add(current);
 		while (openList.size() > 0) {
 			Collections.sort(openList, nodeSorter);
@@ -284,8 +284,8 @@ public class Level {
 				if (at == null) continue;
 				if (!at.walkable()) continue;
 				Vector2i a = new Vector2i(x + xi, y + yi);
-				double gCost = current.gCost + (getDistance(current.tile, a) == 1 ? 1 : 0.95);
-				double hCost = getDistance(a, goal);
+				double gCost = current.gCost + (Vector2i.getDistance(current.tile, a) == 1 ? 1 : 0.95);
+				double hCost = Vector2i.getDistance(a, goal);
 				Node node = new Node(a, current, gCost, hCost);
 				if (vecInList(closedList, a) && gCost >= node.gCost) continue;
 				if (!vecInList(openList, a) || gCost < node.gCost) openList.add(node);
@@ -300,12 +300,6 @@ public class Level {
 			if (n.tile.equals(vector)) return true;
 		}
 		return false;
-	}
-
-	private double getDistance(Vector2i tile, Vector2i goal) {
-		double dx = tile.getX() - goal.getX();
-		double dy = tile.getY() - goal.getY();
-		return Math.sqrt(dx * dx + dy * dy);
 	}
 
 	// getters

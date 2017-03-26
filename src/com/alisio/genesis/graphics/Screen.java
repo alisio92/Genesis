@@ -87,6 +87,7 @@ public class Screen {
 						} else col = changeBrightness(col, Level.brightness);
 					}
 					this.pixels[xx + yy * width] = col;
+					//Debug.drawRect(this,xx + XOffset,yy + yOffset,1,1,0xff0000ff,false);
 				}
 			}
 		}
@@ -190,6 +191,26 @@ public class Screen {
 				col = tint(col, r * intensity, g * intensity, b * intensity);
 				this.pixels[xx + yy * width] = col;
 			}
+		}
+	}
+	
+	public void drawRect(int xLoc, int yLoc, int width, int height, int color, boolean fixed) {
+		if (!fixed) {
+			xLoc -= XOffset;
+			yLoc -= yOffset;
+		}
+		
+		for(int x = xLoc; x < xLoc + width;x++) {
+			if(x < 0 || x >= this.width || yLoc >= this.height) continue;
+			if(yLoc > 0) pixels[x + yLoc * this.width] = color;
+			if(yLoc + height >= this.height) continue;
+			if(yLoc + height > 0) pixels[x + (yLoc + height) * this.width] = color;
+		}
+		for(int y = yLoc; y <= yLoc + height;y++) {
+			if(xLoc >= this.width || y < 0 || y >= this.height) continue;
+			if(xLoc > 0) pixels[xLoc + y * this.width] = color;
+			if(xLoc + width >= this.width) continue;
+			if(xLoc + width > 0) pixels[(xLoc + width) + y * this.width] = color;
 		}
 	}
 

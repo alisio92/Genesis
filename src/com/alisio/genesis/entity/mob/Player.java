@@ -5,6 +5,7 @@ import com.alisio.genesis.entity.projectile.*;
 import com.alisio.genesis.graphics.AnimatedSprite;
 import com.alisio.genesis.graphics.*;
 import com.alisio.genesis.input.*;
+import com.alisio.genesis.util.debug.Debug;
 
 public class Player extends Mob {
 
@@ -89,6 +90,13 @@ public class Player extends Mob {
 
 	public void render(Screen screen) {
 	    sprite = animSprite.getSprite();
+	    if(Debug.visible) Debug.drawRect(screen,(int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite.getWidth(),sprite.getHeight(), false);
 		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
+		
+		/*for(int y2 = -(screen.height / 2); y2 < screen.height / 2;y2++) {
+			for(int x2 = -(screen.width / 2); x2 < screen.width / 2;x2++) {
+				if(collisionOverlay(x2,y2)) Debug.drawRect(screen,(int)x + x2,(int)y + y2,1,1,0xff0000ff,false);
+			}
+		}*/
 	}
 }

@@ -3,6 +3,7 @@ package com.alisio.genesis.entity.mob;
 import com.alisio.genesis.graphics.AnimatedSprite;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.graphics.SpriteSheet;
+import com.alisio.genesis.util.debug.Debug;
 
 public class Trader extends Mob {
 	
@@ -32,6 +33,7 @@ public class Trader extends Mob {
 
 	public void render(Screen screen) {
 		sprite = animSprite.getSprite();
+		if(Debug.visible) Debug.drawRect(screen,(int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite.getWidth(),sprite.getHeight(), false);
 		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), this);
 	}
 }

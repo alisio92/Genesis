@@ -16,4 +16,8 @@ public class EntitySpawner extends Entity {
 		init(level);
 		this.type = type;
 	}
+	
+	public Type getType() {
+		return type;
+	}
 }

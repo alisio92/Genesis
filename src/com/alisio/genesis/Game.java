@@ -3,7 +3,6 @@ package com.alisio.genesis;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -11,6 +10,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 import com.alisio.genesis.console.Console;
 import com.alisio.genesis.entity.mob.Player;
+import com.alisio.genesis.graphics.Font;
 import com.alisio.genesis.graphics.Screen;
 import com.alisio.genesis.input.*;
 import com.alisio.genesis.level.*;
@@ -31,7 +31,6 @@ public class Game extends Canvas implements Runnable{
 	private Level level;
 	private Player player;
 	private Console console;
-	private Debug debug;
 	private boolean running = false;
 	
 	private Screen screen;
@@ -119,7 +118,7 @@ public class Game extends Canvas implements Runnable{
 		g.drawImage(image, 0,0,getWidth(),getHeight(),null);
 		//g.drawImage(overlay, 0,0,getWidth(),getHeight(),null);
 		g.setColor(Color.WHITE);
-		g.setFont(new Font("Verdena",0,16));
+		//g.setFont(new Font("Verdena",0,16));
 		//g.drawString("X: " + player.x + ", Y: " + player.y,10,20);
 		
 		if(console.visible){
@@ -128,11 +127,11 @@ public class Game extends Canvas implements Runnable{
 			g.drawString(console.message, console.x, console.y);
 		}
 		
-		if(debug.visible){
+		if(Debug.visible){
 			g.setColor(new Color(100,100,100,100));
 			g.fillRect(0, 0, getWindowWidth(), getWindowHeight());
 			for(int i = 0; i < Debug.data.size();i++){	
-				g.setColor(debug.color);
+				g.setColor(Debug.color);
 				g.drawString(Debug.data.get(i).text, Debug.data.get(i).x, Debug.data.get(i).y);
 			}
 		}
@@ -147,8 +146,8 @@ public class Game extends Canvas implements Runnable{
 		
 		if(key.space) NewLevel();		
 		if(key.console) console.visible = !console.visible;
-		if(key.debug) debug.visible = !debug.visible;
-		if(debug.visible) debug.update(player, level);
+		if(key.debug) Debug.visible = !Debug.visible;
+		if(Debug.visible) Debug.update(player, level);
 	}
 	
 	private void NewLevel() {
@@ -179,7 +178,6 @@ public class Game extends Canvas implements Runnable{
 		level.add(player);
 		
 		console = new Console(10,400);
-		debug = new Debug();
 		
 		addKeyListener(key);
 		
@@ -206,5 +204,7 @@ public class Game extends Canvas implements Runnable{
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
 		game.start();
+		
+		//Font font = new Font();
 	}
 }
