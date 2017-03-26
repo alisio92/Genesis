@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class SpriteSheet {
 	private String path;
-	private int width, height;
+	private int width,height;
 	public int[] pixels;
 	public double scale;
 	public int SPRITE_WIDTH, SPRITE_HEIGHT;
@@ -18,12 +18,12 @@ public class SpriteSheet {
 		load();
 	}
 	
-	/*public SpriteSheet(String path, int width, int height){
+	public SpriteSheet(String path, int width, int height){
 		this.path = path;
 		this.SPRITE_WIDTH = width;
 		this.SPRITE_HEIGHT = height;
 		load();
-	}*/
+	}
 
 	public SpriteSheet(SpriteSheet sheet, int xLoc, int yLoc, int width, int height, int spriteSize) {
 		int xx = xLoc * spriteSize;
@@ -48,7 +48,7 @@ public class SpriteSheet {
 				int[] spritePixels = new int[spriteSize*spriteSize];
 				for (int y = 0; y < spriteSize; y++) {
 					for (int x = 0; x < spriteSize; x++) {
-						spritePixels[x+y*spriteSize] = pixels[(x+xa*spriteSize) + (y + ya * spriteSize) * width];
+						spritePixels[x+y*spriteSize] = pixels[(x+xa*spriteSize) + (y + ya * spriteSize) * this.width];
 					}
 				}
 				Sprite sprite = new Sprite(spritePixels,spriteSize,spriteSize);
@@ -63,15 +63,17 @@ public class SpriteSheet {
 	
 	private void load(){
 		try {
-			System.out.println("Trying to load: " + path);
+			System.out.print("Trying to load: " + path + " ...");
 			BufferedImage image = ImageIO.read(SpriteSheet.class.getResource(path));
+			System.out.println(" succeeded.");
 			this.width = image.getWidth();
 			this.height = image.getHeight();
 			this.pixels = new int[width * height];
 			image.getRGB(0, 0,width,height,pixels,0,width);
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.err.println("Could not load resource file from " + path + "!");
+		} catch (Exception e) {
+			System.err.println(" failed!");
 		}
 	}
 	

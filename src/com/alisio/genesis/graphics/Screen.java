@@ -122,7 +122,7 @@ public class Screen {
 				int xx = x + xLoc;
 				if (xx < 0 || xx >= width || yy < 0 || yy >= height) continue;
 				int col = sprite.pixels[x + y * sprite.getWidth()];
-				if (col != 0xffff00ff) this.pixels[xx + yy * width] = col;
+				if (col != 0xffff00ff && col != 0xff7F007F) this.pixels[xx + yy * width] = col;
 			}
 		}
 	}

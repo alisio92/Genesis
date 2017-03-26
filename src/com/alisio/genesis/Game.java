@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable{
 	private Player player;
 	private Console console;
 	private boolean running = false;
+	private Font font;
 	
 	private Screen screen;
 	private BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
@@ -98,7 +99,8 @@ public class Game extends Canvas implements Runnable{
 		screen.clear();
 		double xScroll = player.getX() - screen.width / 2;
 		double yScroll = player.getY() - screen.height / 2;
-		level.render((int)xScroll, (int)yScroll, screen);		
+		level.render((int)xScroll, (int)yScroll, screen);	
+		font.render(screen);
 		
 		//Sprite sprite = new Sprite(80,80,0x10ff00ff);
 		//screen.renderSprite(0, 0, sprite, true);
@@ -176,6 +178,7 @@ public class Game extends Canvas implements Runnable{
 		TileLocation location = new TileLocation(20,12);
 		player = new Player(location.getX(),location.getY(),key);
 		level.add(player);
+		font = new Font();
 		
 		console = new Console(10,400);
 		
@@ -204,7 +207,5 @@ public class Game extends Canvas implements Runnable{
 		game.frame.setLocationRelativeTo(null);
 		game.frame.setVisible(true);
 		game.start();
-		
-		//Font font = new Font();
 	}
 }
