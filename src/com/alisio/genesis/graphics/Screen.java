@@ -110,6 +110,22 @@ public class Screen {
 			}
 		}
 	}
+	
+	public void renderText(int xLoc, int yLoc, Sprite sprite,int color, boolean fixed) {
+		if (!fixed) {
+			xLoc -= XOffset;
+			yLoc -= yOffset;
+		}
+		for (int y = 0; y < sprite.getHeight(); y++) {
+			int yy = y + yLoc;
+			for (int x = 0; x < sprite.getWidth(); x++) {
+				int xx = x + xLoc;
+				if (xx < 0 || xx >= width || yy < 0 || yy >= height) continue;
+				int col = sprite.pixels[x + y * sprite.getWidth()];
+				if (col != 0xffff00ff && col != 0xff7F007F) this.pixels[xx + yy * width] = color;
+			}
+		}
+	}
 
 	public void renderSprite(int xLoc, int yLoc, Sprite sprite, boolean fixed) {
 		if (!fixed) {
