@@ -33,6 +33,7 @@ public class Shooter extends Mob {
 		this.movingSpeed = 1;
 		this.animSprite = down;
 		this.firerate = SphereProjectile.FIRE_RATE;
+		this.name = "Shooter";
 	}
 
 	public void update() {
@@ -71,5 +72,6 @@ public class Shooter extends Mob {
 		sprite = animSprite.getSprite();
 		if(Debug.visible) Debug.drawRect(screen,(int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite.getWidth(),sprite.getHeight(), false);
 		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), this);
+		renderName((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)),screen);
 	}
 }

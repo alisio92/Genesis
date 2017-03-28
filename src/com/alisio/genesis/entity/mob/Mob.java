@@ -14,7 +14,10 @@ public abstract class Mob extends Entity {
 	protected int firerate = 0;
 	protected boolean moving = false;
 	protected double movingSpeed = 0;
+	protected String name = "";
+	
 	private Entity rand = null;
+	private Font font = new Font();
 
 	protected enum Direction {
 		UP, DOWN, LEFT, RIGHT
@@ -167,6 +170,12 @@ public abstract class Mob extends Entity {
 			}			
 			firerate = SphereProjectile.FIRE_RATE;
 		}
+	}
+	
+	public void renderName(int xx, int yy,Screen screen) {
+		xx = xx - sprite.getWidth();
+		yy = yy - (sprite.getHeight() / 2);
+		font.render(xx,yy,-3,0xffffff,name, screen,false);
 	}
 
 	// interface

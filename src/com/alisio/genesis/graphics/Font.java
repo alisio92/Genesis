@@ -22,10 +22,10 @@ public class Font {
 	}
 	
 	public void render(int x, int y, String text,Screen screen) {
-		render(x,y,0,0,text,screen);
+		render(x,y,0,0,text,screen,true);
 	}
 	
-	public void render(int x, int y, int spacing, int color,String text,Screen screen) {
+	public void render(int x, int y, int spacing, int color,String text,Screen screen, boolean fixed) {
 		int xOffset = 0;
 		int line = 0;
 		for(int i = 0; i < text.length();i++) {
@@ -39,7 +39,7 @@ public class Font {
 			}
 			int index = charIndex.indexOf(currentChar);
 			if(index == -1) continue;
-			screen.renderText(x + xOffset, y + yOffset + (line * 20), characters[index],color,true);
+			screen.renderText(x + xOffset, y + yOffset + (line * 20), characters[index],color,fixed);
 		}
 	}
 }

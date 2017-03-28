@@ -100,7 +100,7 @@ public class Game extends Canvas implements Runnable{
 		double xScroll = player.getX() - screen.width / 2;
 		double yScroll = player.getY() - screen.height / 2;
 		level.render((int)xScroll, (int)yScroll, screen);	
-		font.render(50,50,-3,0xffffff,"hey guys, my name\nis den ali.", screen);
+		//font.render(50,50,-3,0xffffff,"hey guys, my name\nis den ali.", screen);
 		
 		//Sprite sprite = new Sprite(80,80,0x10ff00ff);
 		//screen.renderSprite(0, 0, sprite, true);

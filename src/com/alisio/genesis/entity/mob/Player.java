@@ -10,7 +10,6 @@ import com.alisio.genesis.util.debug.Debug;
 public class Player extends Mob {
 
 	private KeyBoard input;
-	private Sprite sprite;
 	private AnimatedSprite animSprite = null;
 
 	public static final int WIDTH = 32;
@@ -34,6 +33,7 @@ public class Player extends Mob {
 		this.movingSpeed = speed;
 		this.firerate = SphereProjectile.FIRE_RATE;
 		this.animSprite = up;
+		this.name = "Player";
 	}
 
 	public Player(KeyBoard input) {
@@ -92,6 +92,7 @@ public class Player extends Mob {
 	    sprite = animSprite.getSprite();
 	    if(Debug.visible) Debug.drawRect(screen,(int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite.getWidth(),sprite.getHeight(), false);
 		screen.renderMob((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)), sprite);
+		renderName((int)(x - (WIDTH / 2)), (int)(y - (HEIGHT / 2)),screen);
 		
 		/*for(int y2 = -(screen.height / 2); y2 < screen.height / 2;y2++) {
 			for(int x2 = -(screen.width / 2); x2 < screen.width / 2;x2++) {
