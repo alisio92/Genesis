@@ -21,7 +21,7 @@ public class Level {
 	private GameTime gameTime;
 	private int time = 0;
 	private int lengthChangeNightDay = 4;
-	private int timeSpeed = 10;
+	private int timeSpeed = 100;
 	private int startTime = 28800; // 8 uur 28800
 
 	private List<Entity> entities = new ArrayList<Entity>();

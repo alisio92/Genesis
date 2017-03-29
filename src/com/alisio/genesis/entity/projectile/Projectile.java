@@ -3,7 +3,6 @@ package com.alisio.genesis.entity.projectile;
 import java.util.Random;
 import com.alisio.genesis.entity.Entity;
 import com.alisio.genesis.graphics.Screen;
-import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.graphics.SpriteSheet;
 import com.alisio.genesis.level.tile.Tile;
 
@@ -11,7 +10,6 @@ public abstract class Projectile extends Entity {
 	
 	protected final double xStart, yStart;
 	protected double angle;
-	protected Sprite sprite;
 	protected double nx, ny;
 	protected double distance;
 	protected double speed, range, damage;

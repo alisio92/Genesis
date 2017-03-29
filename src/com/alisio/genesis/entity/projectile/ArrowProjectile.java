@@ -7,17 +7,17 @@ import com.alisio.genesis.graphics.Sprite;
 import com.alisio.genesis.level.tile.Tile;
 import com.alisio.genesis.util.debug.Debug;
 
-public class SphereProjectile extends Projectile {
+public class ArrowProjectile extends Projectile {
 
-	public static Sprite projectile = new Sprite(Tile.SIZE, 0, 0, projectiles);
+	public static Sprite projectile = new Sprite(Tile.SIZE, 1, 0, projectiles);
 	public static final int FIRE_RATE = (int) Game.updates / 1;
 
-	public SphereProjectile(double x, double y, double direction) {
+	public ArrowProjectile(double x, double y, double direction) {
 		super(x, y, direction);
 		this.range = random.nextInt(100) + 150;
 		this.speed = 4;
 		this.damage = 20;
-		this.sprite = projectile;
+		this.sprite = Sprite.rotate(projectile,angle);
 
 		this.nx = speed * Math.cos(angle);
 		this.ny = speed * Math.sin(angle);

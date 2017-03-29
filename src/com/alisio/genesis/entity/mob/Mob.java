@@ -15,6 +15,7 @@ public abstract class Mob extends Entity {
 	protected boolean moving = false;
 	protected double movingSpeed = 0;
 	protected String name = "";
+	protected TypeProjectile typeProjectile;
 	
 	private Entity rand = null;
 	private Font font = new Font();
@@ -22,6 +23,10 @@ public abstract class Mob extends Entity {
 	protected enum Direction {
 		UP, DOWN, LEFT, RIGHT
 	}
+	
+	protected enum TypeProjectile {
+		Sphere, Arrow
+	}	
 
 	public Mob(double x, double y) {
 		super(x, y);
@@ -66,8 +71,10 @@ public abstract class Mob extends Entity {
 	}
 
 	protected void shoot(double x, double y, double direction) {
-		Projectile p = new SphereProjectile(x, y, direction);
-		level.add(p);
+		Projectile p = null;
+		if(typeProjectile == TypeProjectile.Sphere) p = new SphereProjectile(x, y, direction);
+		if(typeProjectile == TypeProjectile.Arrow) p = new ArrowProjectile(x, y, direction);
+		if(p != null) level.add(p);
 	}
 
 	/*
@@ -150,7 +157,8 @@ public abstract class Mob extends Entity {
 				double dir = Math.atan2(dy, dx);
 				shoot(x,y,dir);
 			}			
-			firerate = SphereProjectile.FIRE_RATE;
+			if(typeProjectile == TypeProjectile.Sphere) firerate = SphereProjectile.FIRE_RATE;
+			if(typeProjectile == TypeProjectile.Arrow) firerate = ArrowProjectile.FIRE_RATE;
 		}
 	}
 	
@@ -168,7 +176,8 @@ public abstract class Mob extends Entity {
 				double dir = Math.atan2(dy, dx);
 				shoot(x,y,dir);
 			}			
-			firerate = SphereProjectile.FIRE_RATE;
+			if(typeProjectile == TypeProjectile.Sphere) firerate = SphereProjectile.FIRE_RATE;
+			if(typeProjectile == TypeProjectile.Arrow) firerate = ArrowProjectile.FIRE_RATE;
 		}
 	}
 	

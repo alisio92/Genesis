@@ -31,17 +31,19 @@ public class Player extends Mob {
 		super(x,y);
 		this.input = input;
 		this.movingSpeed = speed;
-		this.firerate = SphereProjectile.FIRE_RATE;
+		this.firerate = ArrowProjectile.FIRE_RATE;
 		this.animSprite = up;
 		this.name = "Player";
+		this.typeProjectile = TypeProjectile.Arrow;
 	}
 
 	public Player(KeyBoard input) {
 		super(0,0);
 		this.input = input;
 		this.movingSpeed = speed;
-		this.firerate = SphereProjectile.FIRE_RATE;
+		this.firerate = ArrowProjectile.FIRE_RATE;
 		this.animSprite = up;
+		this.typeProjectile = TypeProjectile.Arrow;
 	}
 
 	public void update() {
@@ -84,7 +86,7 @@ public class Player extends Mob {
 			double dy = Mouse.getY() - Game.getWindowHeight() / 2;
 			double dir = Math.atan2(dy, dx);
 			shoot(x,y,dir);
-			firerate = SphereProjectile.FIRE_RATE;
+			firerate = ArrowProjectile.FIRE_RATE;
 		}
 	}
 

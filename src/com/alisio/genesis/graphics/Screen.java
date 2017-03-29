@@ -2,9 +2,11 @@ package com.alisio.genesis.graphics;
 
 import java.util.List;
 import com.alisio.genesis.entity.mob.Mob;
+import com.alisio.genesis.entity.projectile.*;
 import com.alisio.genesis.level.Level;
 import com.alisio.genesis.level.object.*;
 import com.alisio.genesis.level.tile.Tile;
+import com.alisio.genesis.util.*;
 
 public class Screen {
 	public int width, height;
@@ -76,15 +78,15 @@ public class Screen {
 								}
 							}
 
-							if (!pointswithinborder) col = changeBrightness(col, Level.brightness);
+							if (!pointswithinborder) col = ColorManipulation.changeBrightness(col, Level.brightness);
 							else {							
 								int xxx = distanceX >> Tile.BASE_SIZE;
 								int yyy = distanceY >> Tile.BASE_SIZE;
 								double intensity = Math.abs((Math.pow(xxx * Math.PI,2) + Math.pow(yyy * Math.PI,2))) * tb * 0.00018;	
-								col = tint(col, lo.red * intensity, lo.green * intensity, lo.blue * intensity);
+								col = ColorManipulation.tint(col, lo.red * intensity, lo.green * intensity, lo.blue * intensity);
 							}
 
-						} else col = changeBrightness(col, Level.brightness);
+						} else col = ColorManipulation.changeBrightness(col, Level.brightness);
 					}
 					this.pixels[xx + yy * width] = col;
 					//Debug.drawRect(this,xx + XOffset,yy + yOffset,1,1,0xff0000ff,false);
@@ -104,7 +106,7 @@ public class Screen {
 				if (xx < 0) xx = 0;
 				int col = tile.sprite.pixels[x + y * tile.sprite.getWidth()];
 				if (col != 0xffff00ff) {
-					col = changeBrightness(col, Level.brightness);
+					col = ColorManipulation.changeBrightness(col, Level.brightness);
 					this.pixels[xx + yy * width] = col;
 				}
 			}
@@ -157,6 +159,21 @@ public class Screen {
 			}
 		}
 	}
+	
+	public void renderProjectile(int xLoc, int yLoc, Projectile p) {
+		xLoc -= XOffset;
+		yLoc -= yOffset;
+		for (int y = 0; y < p.getSprite().getHeight(); y++) {
+			int yy = y + yLoc;
+			for (int x = 0; x < p.getSprite().getWidth(); x++) {
+				int xx = x + xLoc;
+				if (xx < -p.getSprite().getWidth() || xx >= width || yy < 0 || yy >= height) break;
+				if (xx < 0) xx = 0;
+				int col = p.getSprite().pixels[x + y * p.getSprite().getWidth()];
+				if (col != 0xffff00ff) this.pixels[xx + yy * width] = col;
+			}
+		}
+	}
 
 	public void renderMob(int xLoc, int yLoc, Sprite sprite) {
 		xLoc -= XOffset;
@@ -169,7 +186,7 @@ public class Screen {
 				if (xx < 0) xx = 0;
 				int col = sprite.pixels[x + y * sprite.getWidth()];
 				if (col != 0xff78C380) {
-					col = changeBrightness(col, Level.brightness);
+					col = ColorManipulation.changeBrightness(col, Level.brightness);
 					this.pixels[xx + yy * width] = col;
 				}
 			}
@@ -187,7 +204,7 @@ public class Screen {
 				if (xx < 0) xx = 0;
 				int col = mob.getSprite().pixels[x + y * mob.getSprite().getWidth()];
 				if (col != 0xff78C380) {
-					col = changeBrightness(col, Level.brightness);
+					col = ColorManipulation.changeBrightness(col, Level.brightness);
 					this.pixels[xx + yy * width] = col;
 				}
 			}
@@ -204,7 +221,7 @@ public class Screen {
 				if (xx < -tile.sprite.getWidth() || xx >= width || yy < 0 || yy >= height) break;
 				if (xx < 0) xx = 0;
 				int col = tile.sprite.pixels[x + y * tile.sprite.getWidth()];
-				col = tint(col, r * intensity, g * intensity, b * intensity);
+				col = ColorManipulation.tint(col, r * intensity, g * intensity, b * intensity);
 				this.pixels[xx + yy * width] = col;
 			}
 		}
@@ -228,46 +245,6 @@ public class Screen {
 			if(xLoc + width >= this.width) continue;
 			if(xLoc + width > 0) pixels[(xLoc + width) + y * this.width] = color;
 		}
-	}
-
-	public int changeBrightness(int col, int amount) {
-		int r = (col & 0xff0000) >> 16;
-		int g = (col & 0xff00) >> 8;
-		int b = (col & 0xff);
-
-		r += amount;
-		g += amount;
-		b += amount;
-
-		if (r < 0) r = 0;
-		if (g < 0) g = 0;
-		if (b < 0) b = 0;
-
-		if (r > 255) r = 255;
-		if (g > 255) g = 255;
-		if (b > 255) b = 255;
-
-		return r << 16 | g << 8 | b;
-	}
-
-	public int tint(int col, double red, double green, double blue) {
-		int r = (col & 0xff0000) >> 16;
-		int g = (col & 0xff00) >> 8;
-		int b = (col & 0xff);
-
-		r += (int)red;
-		g += (int)green;
-		b += (int)blue;
-
-		if (r < 0) r = 0;
-		if (g < 0) g = 0;
-		if (b < 0) b = 0;
-
-		if (r > 255) r = 255;
-		if (g > 255) g = 255;
-		if (b > 255) b = 255;
-
-		return r << 16 | g << 8 | b;
 	}
 
 	public void setOffset(int xOffset, int yOffset) {
